@@ -1,5 +1,8 @@
-Atari-Go for Blackberry Playbook
+**Atari-Go for Blackberry Playbook**
+
 Copyright ©2012 Jarek Szczepanski <imrahil@imrahil.com>
+
+Source code is inspired by examples from O'Reilly book "ActionScript Developer's Guide to Robotlegs" - https://github.com/Stray/robotlegs-examples-OreillyBook
 
 
 UNLICENSE
