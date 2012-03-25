@@ -3,7 +3,7 @@ Copyright ©2012 Jarek Szczepanski <imrahil@imrahil.com>
 
 
 UNLICENSE
-----
+---------
 
 This is free and unencumbered software released into the public domain.
 
