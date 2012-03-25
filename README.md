@@ -2,8 +2,21 @@
 
 Copyright ©2012 Jarek Szczepanski <imrahil@imrahil.com>
 
+**AtariGo**, aka, first-capture go, the capture game, or Ponnuki-Go is a variant of Go. The first to capture any stones wins the game. 
+(http://senseis.xmp.net/?AtariGo)
+
 Source code is inspired by examples from O'Reilly book "ActionScript Developer's Guide to Robotlegs" - https://github.com/Stray/robotlegs-examples-OreillyBook
 
+SignalMap & SignalMediator - https://github.com/Stray/robotlegs-utilities-SignalMediator
+
+TODO
+----
+
+  - normal version
+  - larger boards
+  - save & load games
+  - better graphics :)
+  
 
 UNLICENSE
 ---------
