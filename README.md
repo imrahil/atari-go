@@ -12,7 +12,6 @@ SignalMap & SignalMediator - https://github.com/Stray/robotlegs-utilities-Signal
 TODO
 ----
 
-  - normal version
   - larger boards
   - save & load games
   - better graphics :)
