@@ -7,6 +7,14 @@
  */
 package com.imrahil.bbapps.atarigo
 {
+    import com.imrahil.bbapps.atarigo.controller.bootstraps.BootstrapCommands;
+    import com.imrahil.bbapps.atarigo.controller.bootstraps.BootstrapConfigValues;
+    import com.imrahil.bbapps.atarigo.controller.bootstraps.BootstrapModels;
+    import com.imrahil.bbapps.atarigo.controller.bootstraps.BootstrapViewMediators;
+    import com.imrahil.bbapps.atarigo.view.AtariGoView;
+    import com.imrahil.bbapps.atarigo.view.goban.IStoneFactory;
+    import com.imrahil.bbapps.atarigo.view.goban.StoneFactory;
+
     import flash.display.DisplayObjectContainer;
 
     import org.robotlegs.mvcs.SignalContext;
@@ -23,15 +31,10 @@ package com.imrahil.bbapps.atarigo
          */
         override public function startup():void
         {
-            // todo: Add Commands
-
-            // todo: Add Model
-
-            // todo: Add Services
-
-            // todo: Add View
-
-            // todo: Add Singleton
+            new BootstrapConfigValues(injector);
+            new BootstrapModels(injector);
+            new BootstrapCommands(signalCommandMap);
+            new BootstrapViewMediators(mediatorMap);
 
             addRootView();
 
@@ -40,7 +43,9 @@ package com.imrahil.bbapps.atarigo
 
         protected function addRootView():void
         {
-
+            var stoneFactory:IStoneFactory = new StoneFactory(20);
+            var mainView:AtariGoView = new AtariGoView(stoneFactory);
+            contextView.addChild(mainView);
         }
     }
 }

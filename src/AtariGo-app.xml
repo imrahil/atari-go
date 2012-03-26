@@ -12,5 +12,9 @@
         <fullScreen>false</fullScreen>
         <visible>true</visible>
         <aspectRatio>portrait</aspectRatio>
+
+        <resizable>false</resizable>
+        <minimizable>false</minimizable>
+        <maximizable>false</maximizable>
     </initialWindow>
 </application>
