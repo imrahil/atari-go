@@ -9,6 +9,8 @@ Source code is inspired by examples from O'Reilly book "ActionScript Developer's
 
 SignalMap & SignalMediator - https://github.com/Stray/robotlegs-utilities-SignalMediator
 
+Application icon is created using - http://nl.wikipedia.org/wiki/Bestand:Ko_01.png
+
 TODO
 ----
 
