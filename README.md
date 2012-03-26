@@ -14,7 +14,6 @@ Application icon is created using - http://nl.wikipedia.org/wiki/Bestand:Ko_01.p
 TODO
 ----
 
-  - normal version
   - larger boards
   - save & load games
   - better graphics :)
