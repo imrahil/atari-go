@@ -19,12 +19,12 @@ package com.imrahil.bbapps.atarigo.view
 
     import qnx.ui.display.Image;
 
-    public class AtariGoView extends Sprite
+    public class GameView extends Sprite
     {
         protected var _stoneFactory:IStoneFactory;
         protected var _goban:GobanView;
 
-        public function AtariGoView(stoneFactory:IStoneFactory)
+        public function GameView(stoneFactory:IStoneFactory)
         {
             _stoneFactory = stoneFactory;
 

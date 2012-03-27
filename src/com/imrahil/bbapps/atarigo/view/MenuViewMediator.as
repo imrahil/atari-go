@@ -9,13 +9,13 @@ package com.imrahil.bbapps.atarigo.view
 {
     import org.robotlegs.mvcs.SignalMediator;
 
-    public class AtariGoViewMediator extends SignalMediator
+    public class MenuViewMediator extends SignalMediator
     {
         /**
          * VIEW
          */
         [Inject]
-        public var view:AtariGoView;
+        public var view:MenuView;
 
         /**
          * SIGNALTONS
@@ -29,7 +29,7 @@ package com.imrahil.bbapps.atarigo.view
         /**
          * CONSTRUCTOR 
          */
-        public function AtariGoViewMediator()
+        public function MenuViewMediator()
         {
             super();
         }
@@ -40,12 +40,18 @@ package com.imrahil.bbapps.atarigo.view
          */
         override public function onRegister():void
         {
+            view.startSignal.add(onStartSignal);
+            view.helpSignal.add(onHelpSignal);
+        }
+
+        private function onStartSignal():void
+        {
 
         }
 
-//        protected function showGridOnView(event:DesignCreationEvent):void
-//        {
-//            view.showGrid(e.rows, e.columns);
-//        }
+        private function onHelpSignal():void
+        {
+
+        }
     }
 }

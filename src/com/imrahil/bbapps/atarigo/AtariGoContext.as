@@ -11,7 +11,8 @@ package com.imrahil.bbapps.atarigo
     import com.imrahil.bbapps.atarigo.controller.bootstraps.BootstrapConfigValues;
     import com.imrahil.bbapps.atarigo.controller.bootstraps.BootstrapModels;
     import com.imrahil.bbapps.atarigo.controller.bootstraps.BootstrapViewMediators;
-    import com.imrahil.bbapps.atarigo.view.AtariGoView;
+    import com.imrahil.bbapps.atarigo.view.GameView;
+    import com.imrahil.bbapps.atarigo.view.MenuView;
     import com.imrahil.bbapps.atarigo.view.goban.IStoneFactory;
     import com.imrahil.bbapps.atarigo.view.goban.StoneFactory;
 
@@ -42,10 +43,11 @@ package com.imrahil.bbapps.atarigo
         }
 
         protected function addRootView():void
-        {
-            var stoneFactory:IStoneFactory = new StoneFactory(20);
-            var mainView:AtariGoView = new AtariGoView(stoneFactory);
-            contextView.addChild(mainView);
+        {                                              2
+            contextView.addChild(new MenuView());
+//            var stoneFactory:IStoneFactory = new StoneFactory(20);
+//            var mainView:GameView = new GameView(stoneFactory);
+//            contextView.addChild(mainView);
         }
     }
 }
