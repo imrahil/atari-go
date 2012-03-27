@@ -8,22 +8,26 @@
 package com.imrahil.bbapps.atarigo.view
 {
     import com.imrahil.bbapps.atarigo.signals.signaltons.StartGameSignal;
+    import com.imrahil.bbapps.atarigo.signals.signaltons.StopGameSignal;
 
     import org.robotlegs.mvcs.SignalMediator;
 
-    public class MenuViewMediator extends SignalMediator
+    public class AtariGoViewMediator extends SignalMediator
     {
         /**
          * VIEW
          */
         [Inject]
-        public var view:MenuView;
+        public var view:AtariGoView;
 
         /**
          * SIGNALTONS
          */
         [Inject]
         public var startGameSignal:StartGameSignal;
+
+        [Inject]
+        public var stopGameSignal:StopGameSignal;
 
         /**
          * SIGNAL -> COMMAND
@@ -32,7 +36,7 @@ package com.imrahil.bbapps.atarigo.view
         /**
          * CONSTRUCTOR 
          */
-        public function MenuViewMediator()
+        public function AtariGoViewMediator()
         {
             super();
         }
@@ -43,18 +47,18 @@ package com.imrahil.bbapps.atarigo.view
          */
         override public function onRegister():void
         {
-            view.startSignal.add(onStartSignal);
-            view.helpSignal.add(onHelpSignal);
+            startGameSignal.add(addGameView);
+            stopGameSignal.add(addMenuView);
         }
 
-        private function onStartSignal():void
+        private function addMenuView():void
         {
-            startGameSignal.dispatch();
+            view.addMenuView();
         }
 
-        private function onHelpSignal():void
+        private function addGameView():void
         {
-
+            view.addGameView();
         }
     }
 }

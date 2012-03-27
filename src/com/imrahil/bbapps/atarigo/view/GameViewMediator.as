@@ -7,6 +7,8 @@
  */
 package com.imrahil.bbapps.atarigo.view
 {
+    import com.imrahil.bbapps.atarigo.signals.signaltons.StopGameSignal;
+
     import org.robotlegs.mvcs.SignalMediator;
 
     public class GameViewMediator extends SignalMediator
@@ -20,7 +22,8 @@ package com.imrahil.bbapps.atarigo.view
         /**
          * SIGNALTONS
          */
-
+        [Inject]
+        public var stopGameSignal:StopGameSignal;
 
         /**
          * SIGNAL -> COMMAND
@@ -40,7 +43,12 @@ package com.imrahil.bbapps.atarigo.view
          */
         override public function onRegister():void
         {
+            view.exitSignal.add(onExitSignal);
+        }
 
+        private function onExitSignal():void
+        {
+            stopGameSignal.dispatch();
         }
 
 //        protected function showGridOnView(event:DesignCreationEvent):void

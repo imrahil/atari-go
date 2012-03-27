@@ -12,9 +12,9 @@ package com.imrahil.bbapps.atarigo.view.parts
 
     import qnx.fuse.ui.text.Label;
 
-    public class AppTitle extends Label
+    public class SmallCornerCopyrights extends Label
     {
-        public function AppTitle()
+        public function SmallCornerCopyrights()
         {
             start();
         }
@@ -23,12 +23,12 @@ package com.imrahil.bbapps.atarigo.view.parts
         {
             var format:TextFormat = new TextFormat();
             format.font = "Arial";
-            format.size = 120;
+            format.size = 15;
             format.color = 0x000000;
 
             this.format = format;
             this.autoSize = TextFieldAutoSize.LEFT;
-            this.text = "Atari GO";
+            this.text = "Copyright © 2012 Jarek Szczepanski";
             this.setActualSize(this.textWidth, this.textHeight);
         }
     }

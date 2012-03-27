@@ -17,10 +17,14 @@ package com.imrahil.bbapps.atarigo.view
     import flash.display.Sprite;
     import flash.events.Event;
 
+    import org.osflash.signals.Signal;
+
     import qnx.ui.display.Image;
 
     public class GameView extends Sprite
     {
+        public var exitSignal:Signal = new Signal();
+
         protected var _stoneFactory:IStoneFactory;
         protected var _goban:GobanView;
 
@@ -49,6 +53,7 @@ package com.imrahil.bbapps.atarigo.view
             appLogoImage.y = 212;
 
             var playerOneDetails:PlayerDetails = new PlayerDetails();
+            playerOneDetails.exitSignal.add(onPlayerOneExit);
             addChild(playerOneDetails);
 
             playerOneDetails.x = 0;
@@ -56,12 +61,23 @@ package com.imrahil.bbapps.atarigo.view
             playerOneDetails.setName("Player 1");
 
             var playerTwoDetails:PlayerDetails = new PlayerDetails();
+            playerTwoDetails.exitSignal.add(onPlayerTwoExit);
             addChild(playerTwoDetails);
 
             playerTwoDetails.x = 600;
             playerTwoDetails.y = 212;
             playerTwoDetails.rotationZ = 180;
             playerTwoDetails.setName("Player 2");
+        }
+
+        private function onPlayerOneExit():void
+        {
+            exitSignal.dispatch();
+        }
+
+        private function onPlayerTwoExit():void
+        {
+            exitSignal.dispatch();
         }
 
         public function showGrid(rows:uint, columns:uint):void
