@@ -14,7 +14,7 @@ package com.imrahil.bbapps.atarigo.view.goban
         protected var _groutColor:uint;
         protected var _stoneFactory:IStoneFactory;
         protected var _groutLines:GroutLinesView;
-//        protected var _tilesView:GridTilesView;
+        protected var _stonesView:GobanStonesView;
 
         public function GobanView(stoneFactory:IStoneFactory)
         {
@@ -23,8 +23,8 @@ package com.imrahil.bbapps.atarigo.view.goban
 
         public function setGobanSize(rows:uint, columns:uint):void
         {
-            addTiles(rows, columns);
             addGrout(rows, columns);
+            addTiles(rows, columns);
         }
 
         public function set groutColor(color:uint):void
@@ -38,10 +38,16 @@ package com.imrahil.bbapps.atarigo.view.goban
 
         protected function addTiles(rows:uint, columns:uint):void
         {
-//            removeIfRequired(_tilesView);
-//            _tilesView = new GridTilesView(_stoneFactory, rows, columns, changeTileColor);
-//            addChild(_tilesView);
-//            _tilesView.x = _tilesView.y = _stoneFactory.stoneSize / 2;
+            removeIfRequired(_stonesView);
+            _stonesView = new GobanStonesView(_stoneFactory, rows, columns, placeStoneOnGoban);
+            addChild(_stonesView);
+            _stonesView.x = _stonesView.y = _stoneFactory.stoneSize / 2;
+        }
+
+        protected function placeStoneOnGoban(selectedStone:IStoneView, row:uint, column:uint):void
+        {
+            selectedStone.color = StoneView.COLOR_BLACK;
+//            dispatchEvent(new TileColorChangeEvent(TileColorChangeEvent.CHANGED, row, column, _selectionColor));
         }
 
         protected function addGrout(rows:uint, columns:uint):void

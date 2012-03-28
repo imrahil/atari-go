@@ -7,12 +7,16 @@
  */
 package com.imrahil.bbapps.atarigo.controller.bootstraps
 {
+    import com.imrahil.bbapps.atarigo.model.ConfigModel;
+    import com.imrahil.bbapps.atarigo.model.IConfigModel;
+
     import org.robotlegs.core.IInjector;
 
     public class BootstrapModels
     {
         public function BootstrapModels(injector:IInjector)
         {
+            injector.mapSingletonOf(IConfigModel, ConfigModel);
         }
     }
 }

@@ -11,6 +11,8 @@ package com.imrahil.bbapps.atarigo.view
     import com.imrahil.bbapps.atarigo.view.goban.StoneFactory;
 
     import flash.display.Sprite;
+    import flash.display.StageAlign;
+    import flash.display.StageScaleMode;
     import flash.events.Event;
 
     public class AtariGoView extends Sprite
@@ -27,12 +29,15 @@ package com.imrahil.bbapps.atarigo.view
         {
             this.removeEventListener(Event.ADDED_TO_STAGE, create);
 
+            stage.align = StageAlign.TOP_LEFT;
+            stage.scaleMode = StageScaleMode.NO_SCALE;
+
             addMenuView();
         }
 
         public function addMenuView():void
         {
-            clearGameView();
+            removeIfRequired(_gameView);
 
             _menuView = new MenuView();
             addChild(_menuView);
@@ -40,26 +45,18 @@ package com.imrahil.bbapps.atarigo.view
 
         public function addGameView():void
         {
-            clearMenuView();
+            removeIfRequired(_menuView);
 
             var stoneFactory:IStoneFactory = new StoneFactory(20);
             _gameView = new GameView(stoneFactory);
             addChild(_gameView);
         }
 
-        protected function clearMenuView():void
+        protected function removeIfRequired(item:Sprite):void
         {
-            if (_menuView && contains(_menuView))
+            if (item && contains(item))
             {
-                removeChild(_menuView);
-            }
-        }
-
-        protected function clearGameView():void
-        {
-            if (_gameView && contains(_gameView))
-            {
-                removeChild(_gameView);
+                removeChild(item);
             }
         }
     }

@@ -19,8 +19,8 @@ package com.imrahil.bbapps.atarigo.view.goban
         public function GobanLayout(goban:DisplayObject, totalWidth:Number, totalHeight:Number, stoneSize:Number)
         {
             _goban = goban;
-            _workingWidth = totalWidth - 1;
-            _workingHeight = totalHeight - 1;
+            _workingWidth = totalWidth;
+            _workingHeight = totalHeight;
             _stoneSize = stoneSize;
         }
 

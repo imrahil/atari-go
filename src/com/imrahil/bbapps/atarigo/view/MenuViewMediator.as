@@ -43,8 +43,8 @@ package com.imrahil.bbapps.atarigo.view
          */
         override public function onRegister():void
         {
-            view.startSignal.add(onStartSignal);
-            view.helpSignal.add(onHelpSignal);
+            addToSignal(view.startSignal, onStartSignal);
+            addToSignal(view.helpSignal, onHelpSignal);
         }
 
         private function onStartSignal():void

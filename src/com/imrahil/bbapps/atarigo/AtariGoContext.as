@@ -12,9 +12,12 @@ package com.imrahil.bbapps.atarigo
     import com.imrahil.bbapps.atarigo.controller.bootstraps.BootstrapModels;
     import com.imrahil.bbapps.atarigo.controller.bootstraps.BootstrapSignaltons;
     import com.imrahil.bbapps.atarigo.controller.bootstraps.BootstrapViewMediators;
+    import com.imrahil.bbapps.atarigo.signals.StartupSignal;
     import com.imrahil.bbapps.atarigo.view.AtariGoView;
 
     import flash.display.DisplayObjectContainer;
+
+    import org.osflash.signals.Signal;
 
     import org.robotlegs.mvcs.SignalContext;
 
@@ -38,7 +41,8 @@ package com.imrahil.bbapps.atarigo
 
             addRootView();
 
-            super.startup();
+            var signal:Signal = this.injector.getInstance(StartupSignal);
+            signal.dispatch();
         }
 
         protected function addRootView():void

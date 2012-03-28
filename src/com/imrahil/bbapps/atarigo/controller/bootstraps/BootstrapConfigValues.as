@@ -7,7 +7,7 @@
  */
 package com.imrahil.bbapps.atarigo.controller.bootstraps
 {
-    import com.imrahil.bbapps.atarigo.model.values.DefaultGridSize;
+    import com.imrahil.bbapps.atarigo.model.values.DefaultGobanSize;
     import com.imrahil.bbapps.atarigo.model.values.DefaultPlayerNames;
 
     import org.robotlegs.core.IInjector;
@@ -16,8 +16,8 @@ package com.imrahil.bbapps.atarigo.controller.bootstraps
     {
         public function BootstrapConfigValues(injector:IInjector)
         {
-            injector.mapValue(DefaultPlayerNames, new DefaultPlayerNames("Player 1", "Player 2"));
-            injector.mapValue(DefaultGridSize, new DefaultGridSize(9, 9));
+            injector.mapValue(DefaultPlayerNames, new DefaultPlayerNames("Player Raz", "Player Dwa"));
+            injector.mapValue(DefaultGobanSize, new DefaultGobanSize(9, 9));
         }
     }
 }

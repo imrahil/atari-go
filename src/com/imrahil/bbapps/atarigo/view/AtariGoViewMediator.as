@@ -7,6 +7,7 @@
  */
 package com.imrahil.bbapps.atarigo.view
 {
+    import com.imrahil.bbapps.atarigo.signals.GetGameParametersSignal;
     import com.imrahil.bbapps.atarigo.signals.signaltons.StartGameSignal;
     import com.imrahil.bbapps.atarigo.signals.signaltons.StopGameSignal;
 
@@ -32,6 +33,8 @@ package com.imrahil.bbapps.atarigo.view
         /**
          * SIGNAL -> COMMAND
          */
+        [Inject]
+        public var getGameParametersSignal:GetGameParametersSignal;
 
         /**
          * CONSTRUCTOR 
@@ -47,8 +50,8 @@ package com.imrahil.bbapps.atarigo.view
          */
         override public function onRegister():void
         {
-            startGameSignal.add(addGameView);
-            stopGameSignal.add(addMenuView);
+            addToSignal(startGameSignal, addGameView);
+            addToSignal(stopGameSignal, addMenuView);
         }
 
         private function addMenuView():void
@@ -59,6 +62,8 @@ package com.imrahil.bbapps.atarigo.view
         private function addGameView():void
         {
             view.addGameView();
+
+            getGameParametersSignal.dispatch();
         }
     }
 }

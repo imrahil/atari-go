@@ -26,9 +26,9 @@ package com.imrahil.bbapps.atarigo.view.goban
             _stoneSize = size;
         }
 
-//        public function createStone():IStoneView
-//        {
-//
-//        }
+        public function createStone():IStoneView
+        {
+            return new StoneView(_stoneSize);
+        }
     }
 }

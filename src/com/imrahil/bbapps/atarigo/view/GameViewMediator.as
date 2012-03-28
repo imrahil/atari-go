@@ -7,6 +7,9 @@
  */
 package com.imrahil.bbapps.atarigo.view
 {
+    import com.imrahil.bbapps.atarigo.model.vo.GobanSizeVO;
+    import com.imrahil.bbapps.atarigo.model.vo.PlayerNamesVO;
+    import com.imrahil.bbapps.atarigo.signals.signaltons.GameParametersSignal;
     import com.imrahil.bbapps.atarigo.signals.signaltons.StopGameSignal;
 
     import org.robotlegs.mvcs.SignalMediator;
@@ -24,6 +27,9 @@ package com.imrahil.bbapps.atarigo.view
          */
         [Inject]
         public var stopGameSignal:StopGameSignal;
+
+        [Inject]
+        public var gameParameters:GameParametersSignal;
 
         /**
          * SIGNAL -> COMMAND
@@ -43,7 +49,8 @@ package com.imrahil.bbapps.atarigo.view
          */
         override public function onRegister():void
         {
-            view.exitSignal.add(onExitSignal);
+            addToSignal(gameParameters, onGameParameters);
+            addToSignal(view.exitSignal, onExitSignal);
         }
 
         private function onExitSignal():void
@@ -51,9 +58,12 @@ package com.imrahil.bbapps.atarigo.view
             stopGameSignal.dispatch();
         }
 
-//        protected function showGridOnView(event:DesignCreationEvent):void
-//        {
-//            view.showGrid(e.rows, e.columns);
-//        }
+        protected function onGameParameters(gobanSize:GobanSizeVO, playerNames:PlayerNamesVO):void
+        {
+            view.addGoban(gobanSize.gobanRows, gobanSize.gobanColumns);
+
+            view.setPlayerOneName(playerNames.playerOneName);
+            view.setPlayerTwoName(playerNames.playerTwoName);
+        }
     }
 }

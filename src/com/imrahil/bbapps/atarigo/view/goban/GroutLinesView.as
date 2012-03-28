@@ -7,6 +7,8 @@
  */
 package com.imrahil.bbapps.atarigo.view.goban
 {
+    import flash.display.CapsStyle;
+    import flash.display.LineScaleMode;
     import flash.display.Sprite;
     import flash.geom.ColorTransform;
 
@@ -14,7 +16,7 @@ package com.imrahil.bbapps.atarigo.view.goban
     {
         public function GroutLinesView(rows:uint, columns:uint, stoneSize:Number)
         {
-            drawLines(rows, columns, stoneSize);
+            drawLines(rows - 1, columns - 1, stoneSize);
         }
 
         public function set color(groutColor:uint):void
@@ -26,7 +28,7 @@ package com.imrahil.bbapps.atarigo.view.goban
 
         protected function drawLines(rows:uint, columns:uint, stoneSize:Number):void
         {
-            graphics.lineStyle(0, 0, 1);
+            graphics.lineStyle(1, 0, 1, true, LineScaleMode.NORMAL, CapsStyle.NONE);
             var verticalLineHeight:Number = (rows * stoneSize);
             var horizontalLineWidth:Number = (columns * stoneSize);
 
@@ -36,29 +38,29 @@ package com.imrahil.bbapps.atarigo.view.goban
 
         protected function drawVerticalLines(noOfLines:uint, lineHeight:Number, spacing:Number):void
         {
-            graphics.moveTo(0, 0);
-            var xPos:Number = 0;
+            graphics.moveTo(spacing / 2, spacing / 2);
+            var xPos:Number = spacing / 2;
 
             var iLength:uint = noOfLines;
             for (var i:int = 0; i < iLength; i++)
             {
-                graphics.lineTo(xPos, lineHeight);
+                graphics.lineTo(xPos, lineHeight + spacing / 2);
                 xPos += spacing;
-                graphics.moveTo(xPos, 0);
+                graphics.moveTo(xPos, spacing / 2);
             }
         }
 
         protected function drawHorizontalLines(noOfLines:uint, lineWidth:Number, spacing:Number):void
         {
-            graphics.moveTo(0, 0);
-            var yPos:Number = 0;
+            graphics.moveTo(spacing / 2, spacing / 2);
+            var yPos:Number = spacing / 2;
 
             var iLength:uint = noOfLines;
             for (var i:int = 0; i < iLength; i++)
             {
-                graphics.lineTo(lineWidth, yPos);
+                graphics.lineTo(lineWidth + spacing / 2, yPos);
                 yPos += spacing;
-                graphics.moveTo(0, yPos);
+                graphics.moveTo(spacing / 2, yPos);
             }
         }
     }

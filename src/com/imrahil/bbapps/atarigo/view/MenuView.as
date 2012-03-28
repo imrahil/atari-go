@@ -23,6 +23,8 @@ package com.imrahil.bbapps.atarigo.view
     import qnx.dialog.DialogSize;
     import qnx.display.IowWindow;
 
+    import utils.ScreenSizeUtils;
+
     public class MenuView extends Sprite
     {
         public var startSignal:Signal = new Signal();
@@ -54,7 +56,7 @@ package com.imrahil.bbapps.atarigo.view
             startBtn.addEventListener(MouseEvent.CLICK, onStartBtnClick);
             addChild(startBtn);
 
-            startBtn.x = 100;
+            startBtn.x = (stage.stageWidth - startBtn.width) / 2;
             startBtn.y = 300;
 
             // HELP BUTTON
@@ -63,7 +65,7 @@ package com.imrahil.bbapps.atarigo.view
             helpBtn.addEventListener(MouseEvent.CLICK, onHelpBtnClick);
             addChild(helpBtn);
 
-            helpBtn.x = 100;
+            helpBtn.x = (stage.stageWidth - helpBtn.width) / 2;;
             helpBtn.y = 500;
 
             // ABOUT BUTTON
@@ -72,7 +74,7 @@ package com.imrahil.bbapps.atarigo.view
             aboutBtn.addEventListener(MouseEvent.CLICK, onAboutBtnClick);
             addChild(aboutBtn);
 
-            aboutBtn.x = 100;
+            aboutBtn.x = (stage.stageWidth - aboutBtn.width) / 2;;
             aboutBtn.y = 700;
 
             // COPYRIGHT
@@ -95,19 +97,22 @@ package com.imrahil.bbapps.atarigo.view
 
         private function onAboutBtnClick(event:MouseEvent):void
         {
-            var app_xml:XML = NativeApplication.nativeApplication.applicationDescriptor;
-            var ns:Namespace = app_xml.namespace();
-            var versionNumber:String = app_xml.ns::versionNumber;
+            CONFIG::device
+            {
+                var app_xml:XML = NativeApplication.nativeApplication.applicationDescriptor;
+                var ns:Namespace = app_xml.namespace();
+                var versionNumber:String = app_xml.ns::versionNumber;
 
-            var aboutDialog:AlertDialog = new AlertDialog();
-            aboutDialog.title = "Atari GO - v." + versionNumber;
-            aboutDialog.messageHtml = "<p align='center'><b>Author:</b> Jarek Szczepański<br />" +
-                                      "<b>Email:</b> support_bb@imrahil.com<br />" +
-                                      "<b>Website:</b> http://flex.imrahil.com</p>";
-            aboutDialog.addButton("OK");
-            aboutDialog.dialogSize = DialogSize.SIZE_SMALL;
-            aboutDialog.addEventListener(Event.SELECT, aboutButtonClicked);
-            aboutDialog.show(IowWindow.getAirWindow().group);
+                var aboutDialog:AlertDialog = new AlertDialog();
+                aboutDialog.title = "Atari GO - v." + versionNumber;
+                aboutDialog.messageHtml = "<p align='center'><b>Author:</b> Jarek Szczepański<br />" +
+                                          "<b>Email:</b> support_bb@imrahil.com<br />" +
+                                          "<b>Website:</b> http://flex.imrahil.com</p>";
+                aboutDialog.addButton("OK");
+                aboutDialog.dialogSize = DialogSize.SIZE_SMALL;
+                aboutDialog.addEventListener(Event.SELECT, aboutButtonClicked);
+                aboutDialog.show(IowWindow.getAirWindow().group);
+            }
         }
 
         private function aboutButtonClicked(event:Event):void

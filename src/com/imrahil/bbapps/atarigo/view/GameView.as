@@ -28,6 +28,9 @@ package com.imrahil.bbapps.atarigo.view
         protected var _stoneFactory:IStoneFactory;
         protected var _goban:GobanView;
 
+        protected var playerOneDetails:PlayerDetails;
+        protected var playerTwoDetails:PlayerDetails;
+
         public function GameView(stoneFactory:IStoneFactory)
         {
             _stoneFactory = stoneFactory;
@@ -42,32 +45,45 @@ package com.imrahil.bbapps.atarigo.view
             addPlayerDetails();
         }
 
+        public function addGoban(rows:int, columns:int):void
+        {
+            _goban = new GobanView(_stoneFactory);
+            _goban.setGobanSize(rows, columns);
+            addChild(_goban);
+
+            new GobanLayout(_goban, stage.stageWidth, stage.stageHeight, _stoneFactory.stoneSize)
+                    .resizeGridToFit(rows, columns)
+                    .centerGrid();
+        }
+
+        public function setPlayerOneName(name:String):void
+        {
+            playerOneDetails.setName(name);
+        }
+
+        public function setPlayerTwoName(name:String):void
+        {
+            playerTwoDetails.setName(name);
+        }
+
         private function addPlayerDetails():void
         {
-            var appLogo:Bitmap = new Resources.GOBAN_IMAGE();
-            var appLogoImage:Image = new Image();
-            appLogoImage.setImage(appLogo);
-            this.addChild(appLogoImage);
-
-            appLogoImage.x = 0;
-            appLogoImage.y = 212;
-
-            var playerOneDetails:PlayerDetails = new PlayerDetails();
+            playerOneDetails = new PlayerDetails();
             playerOneDetails.exitSignal.add(onPlayerOneExit);
             addChild(playerOneDetails);
 
             playerOneDetails.x = 0;
             playerOneDetails.y = 812;
-            playerOneDetails.setName("Player 1");
+//            playerOneDetails.setName("Player 1");
 
-            var playerTwoDetails:PlayerDetails = new PlayerDetails();
+            playerTwoDetails = new PlayerDetails();
             playerTwoDetails.exitSignal.add(onPlayerTwoExit);
             addChild(playerTwoDetails);
 
-            playerTwoDetails.x = 600;
+            playerTwoDetails.x = stage.stageWidth;
             playerTwoDetails.y = 212;
             playerTwoDetails.rotationZ = 180;
-            playerTwoDetails.setName("Player 2");
+//            playerTwoDetails.setName("Player 2");
         }
 
         private function onPlayerOneExit():void
@@ -78,26 +94,6 @@ package com.imrahil.bbapps.atarigo.view
         private function onPlayerTwoExit():void
         {
             exitSignal.dispatch();
-        }
-
-        public function showGrid(rows:uint, columns:uint):void
-        {
-            clear();
-            _goban = new GobanView(_stoneFactory);
-            _goban.setGobanSize(rows, columns);
-            addChild(_goban);
-
-            new GobanLayout(_goban, stage.stageWidth, stage.stageHeight, _stoneFactory.stoneSize)
-                    .resizeGridToFit(rows, columns)
-                    .centerGrid();
-        }
-
-        protected function clear():void
-        {
-            if (_goban && contains(_goban))
-            {
-                removeChild(_goban);
-            }
         }
     }
 }

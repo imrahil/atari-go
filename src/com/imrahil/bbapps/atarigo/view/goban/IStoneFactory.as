@@ -13,6 +13,6 @@ package com.imrahil.bbapps.atarigo.view.goban
 
         function set stoneSize(size:Number):void;
 
-//        function createStone():IStoneView;
+        function createStone():IStoneView;
     }
 }
