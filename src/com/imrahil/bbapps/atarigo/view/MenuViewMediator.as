@@ -7,7 +7,7 @@
  */
 package com.imrahil.bbapps.atarigo.view
 {
-    import com.imrahil.bbapps.atarigo.signals.signaltons.StartGameSignal;
+    import com.imrahil.bbapps.atarigo.signals.StartGameSignal;
 
     import org.robotlegs.mvcs.SignalMediator;
 

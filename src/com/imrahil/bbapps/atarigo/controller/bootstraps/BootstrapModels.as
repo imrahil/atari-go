@@ -8,7 +8,9 @@
 package com.imrahil.bbapps.atarigo.controller.bootstraps
 {
     import com.imrahil.bbapps.atarigo.model.ConfigModel;
+    import com.imrahil.bbapps.atarigo.model.GobanModel;
     import com.imrahil.bbapps.atarigo.model.IConfigModel;
+    import com.imrahil.bbapps.atarigo.model.IGobanModel;
 
     import org.robotlegs.core.IInjector;
 
@@ -17,6 +19,7 @@ package com.imrahil.bbapps.atarigo.controller.bootstraps
         public function BootstrapModels(injector:IInjector)
         {
             injector.mapSingletonOf(IConfigModel, ConfigModel);
+            injector.mapSingletonOf(IGobanModel, GobanModel);
         }
     }
 }

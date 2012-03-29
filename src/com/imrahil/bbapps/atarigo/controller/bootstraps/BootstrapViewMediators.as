@@ -14,6 +14,8 @@ package com.imrahil.bbapps.atarigo.controller.bootstraps
     import com.imrahil.bbapps.atarigo.view.GameViewMediator;
     import com.imrahil.bbapps.atarigo.view.MenuView;
     import com.imrahil.bbapps.atarigo.view.MenuViewMediator;
+    import com.imrahil.bbapps.atarigo.view.goban.GobanView;
+    import com.imrahil.bbapps.atarigo.view.goban.GobanViewMediator;
 
     import org.robotlegs.core.IMediatorMap;
 
@@ -25,6 +27,8 @@ package com.imrahil.bbapps.atarigo.controller.bootstraps
 
             mediatorMap.mapView(MenuView, MenuViewMediator);
             mediatorMap.mapView(GameView, GameViewMediator);
+
+            mediatorMap.mapView(GobanView, GobanViewMediator);
         }
     }
 }

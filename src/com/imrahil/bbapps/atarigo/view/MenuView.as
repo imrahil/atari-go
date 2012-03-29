@@ -12,7 +12,6 @@ package com.imrahil.bbapps.atarigo.view
     import com.imrahil.bbapps.atarigo.view.parts.SmallCornerCopyrights;
 
     import flash.desktop.NativeApplication;
-
     import flash.display.Sprite;
     import flash.events.Event;
     import flash.events.MouseEvent;
@@ -22,8 +21,6 @@ package com.imrahil.bbapps.atarigo.view
     import qnx.dialog.AlertDialog;
     import qnx.dialog.DialogSize;
     import qnx.display.IowWindow;
-
-    import utils.ScreenSizeUtils;
 
     public class MenuView extends Sprite
     {

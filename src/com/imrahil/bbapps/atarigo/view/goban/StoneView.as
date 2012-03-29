@@ -16,9 +16,6 @@ package com.imrahil.bbapps.atarigo.view.goban
         protected var _fill:Shape;
         protected var _stone:Shape;
 
-        public static const COLOR_BLACK:uint = 0x000000;
-        public static const COLOR_WHITE:uint = 0xFFFFFF;
-
         public function StoneView(stoneSize:Number)
         {
             drawContents(stoneSize);

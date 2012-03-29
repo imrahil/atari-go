@@ -5,7 +5,7 @@
  @project  AtariGo
  @internal
  */
-package com.imrahil.bbapps.atarigo.signals.signaltons
+package com.imrahil.bbapps.atarigo.signals
 {
     import org.osflash.signals.Signal;
 

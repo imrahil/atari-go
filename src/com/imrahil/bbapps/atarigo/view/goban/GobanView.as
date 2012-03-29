@@ -9,12 +9,16 @@ package com.imrahil.bbapps.atarigo.view.goban
 {
     import flash.display.Sprite;
 
+    import org.osflash.signals.Signal;
+
     public class GobanView extends Sprite implements IGobanView
     {
         protected var _groutColor:uint;
         protected var _stoneFactory:IStoneFactory;
         protected var _groutLines:GroutLinesView;
         protected var _stonesView:GobanStonesView;
+
+        public var placeStoneSignal:Signal = new Signal();
 
         public function GobanView(stoneFactory:IStoneFactory)
         {
@@ -46,8 +50,7 @@ package com.imrahil.bbapps.atarigo.view.goban
 
         protected function placeStoneOnGoban(selectedStone:IStoneView, row:uint, column:uint):void
         {
-            selectedStone.color = StoneView.COLOR_BLACK;
-//            dispatchEvent(new TileColorChangeEvent(TileColorChangeEvent.CHANGED, row, column, _selectionColor));
+            placeStoneSignal.dispatch(row, column, selectedStone);
         }
 
         protected function addGrout(rows:uint, columns:uint):void
