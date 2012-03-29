@@ -26,9 +26,14 @@ package com.imrahil.bbapps.atarigo.view.ui
             init();
         }
 
-        public function setName(value:String):void
+        public function set playerName(value:String):void
         {
             _playerNameLabel.text = value;
+        }
+
+        public function get playerName():String
+        {
+            return _playerNameLabel.text;
         }
 
         protected function init():void

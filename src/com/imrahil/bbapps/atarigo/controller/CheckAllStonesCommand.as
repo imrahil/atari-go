@@ -10,21 +10,15 @@ package com.imrahil.bbapps.atarigo.controller
     import com.imrahil.bbapps.atarigo.constants.ApplicationConstants;
     import com.imrahil.bbapps.atarigo.model.IConfigModel;
     import com.imrahil.bbapps.atarigo.model.IGobanModel;
-    import com.imrahil.bbapps.atarigo.model.vo.PlaceVO;
-    import com.imrahil.bbapps.atarigo.signals.CheckAllStonesSignal;
-    import com.imrahil.bbapps.atarigo.signals.signaltons.DrawStoneOnBoardSignal;
-    import com.imrahil.bbapps.atarigo.view.goban.IStoneView;
+    import com.imrahil.bbapps.atarigo.signals.signaltons.WinMessageSignal;
 
     import org.robotlegs.mvcs.SignalCommand;
 
-    public final class PlaceStoneCommand extends SignalCommand
+    public final class CheckAllStonesCommand extends SignalCommand 
     {
         /** PARAMETERS **/
         [Inject]
-        public var place:PlaceVO;
-
-        [Inject]
-        public var selectedStoneView:IStoneView;
+        public var selectedPlayerID:uint;
 
         /** INJECTIONS **/
         [Inject]
@@ -34,40 +28,26 @@ package com.imrahil.bbapps.atarigo.controller
         public var configModel:IConfigModel;
 
         [Inject]
-        public var checkAllStonesSignal:CheckAllStonesSignal;
-
-        [Inject]
-        public var drawStoneSignalton:DrawStoneOnBoardSignal;
+        public var winMessageSignal:WinMessageSignal;
 
         /**
-         * Method handle the logic for <code>PlaceStoneCommand</code>
+         * Method handle the logic for <code>CheckAllStonesCommand</code>
          */        
         override public function execute():void    
         {
-            var row:uint = place.row;
-            var column:uint = place.column;
+            var rows:uint = configModel.gobanSize.gobanRows;
+            var columns:uint = configModel.gobanSize.gobanColumns;
 
-            var isStoneThere:uint = gobanModel.getStoneInfoAt(row, column);
-
-            if (isStoneThere == ApplicationConstants.EMPTY_FIELD_ID)
+            for (var i:int = 0; i < rows; i++)
             {
-                var isBreath:Boolean = checkBreaths(row, column);
-
-                if (isBreath)
+                for (var j:int = 0; j < columns; j++)
                 {
-                    gobanModel.placeStoneAt(row, column);
-                    drawStoneSignalton.dispatch(selectedStoneView, gobanModel.selectedPlayerID);
+                    var isBreath:Boolean = checkBreaths(i, j);
 
-                    checkAllStonesSignal.dispatch(gobanModel.selectedPlayerID);
-
-
-                    if (gobanModel.selectedPlayerID == ApplicationConstants.PLAYER_ONE_ID)
+                    if (!isBreath)
                     {
-                        gobanModel.selectedPlayerID = ApplicationConstants.PLAYER_TWO_ID;
-                    }
-                    else
-                    {
-                        gobanModel.selectedPlayerID = ApplicationConstants.PLAYER_ONE_ID;
+                        winMessageSignal.dispatch(selectedPlayerID);
+                        return;
                     }
                 }
             }

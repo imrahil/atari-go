@@ -11,6 +11,7 @@ package com.imrahil.bbapps.atarigo.view
     import com.imrahil.bbapps.atarigo.model.vo.PlayerNamesVO;
     import com.imrahil.bbapps.atarigo.signals.signaltons.GameParametersSignal;
     import com.imrahil.bbapps.atarigo.signals.signaltons.StopGameSignal;
+    import com.imrahil.bbapps.atarigo.signals.signaltons.WinMessageSignal;
 
     import org.robotlegs.mvcs.SignalMediator;
 
@@ -31,6 +32,9 @@ package com.imrahil.bbapps.atarigo.view
         [Inject]
         public var gameParameters:GameParametersSignal;
 
+        [Inject]
+        public var winMessageSignal:WinMessageSignal;
+
         /**
          * SIGNAL -> COMMAND
          */
@@ -50,7 +54,13 @@ package com.imrahil.bbapps.atarigo.view
         override public function onRegister():void
         {
             addToSignal(gameParameters, onGameParameters);
+            addToSignal(winMessageSignal, onWinMessage);
             addToSignal(view.exitSignal, onExitSignal);
+        }
+
+        private function onWinMessage(selectedPlayerID:uint):void
+        {
+            view.setWinner(selectedPlayerID);
         }
 
         private function onExitSignal():void
@@ -62,8 +72,7 @@ package com.imrahil.bbapps.atarigo.view
         {
             view.addGoban(gobanSize.gobanRows, gobanSize.gobanColumns);
 
-            view.setPlayerOneName(playerNames.playerOneName);
-            view.setPlayerTwoName(playerNames.playerTwoName);
+            view.setPlayerNames(playerNames.playerOneName, playerNames.playerTwoName);
         }
     }
 }
