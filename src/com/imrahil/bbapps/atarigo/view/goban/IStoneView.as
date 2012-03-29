@@ -12,7 +12,7 @@ package com.imrahil.bbapps.atarigo.view.goban
 
     public interface IStoneView extends IEventDispatcher
     {
-        function set color(color_to_use:uint):void;
+        function placeStone(color_to_use:uint):void;
 
         function get asDisplayObject():DisplayObject;
     }

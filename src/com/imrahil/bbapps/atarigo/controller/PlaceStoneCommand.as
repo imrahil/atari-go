@@ -8,6 +8,7 @@
 package com.imrahil.bbapps.atarigo.controller 
 {
     import com.imrahil.bbapps.atarigo.constants.ApplicationConstants;
+    import com.imrahil.bbapps.atarigo.model.IConfigModel;
     import com.imrahil.bbapps.atarigo.model.IGobanModel;
     import com.imrahil.bbapps.atarigo.model.vo.PlaceVO;
     import com.imrahil.bbapps.atarigo.signals.signaltons.DrawStoneOnBoardSignal;
@@ -29,6 +30,9 @@ package com.imrahil.bbapps.atarigo.controller
         public var gobanModel:IGobanModel;
 
         [Inject]
+        public var configModel:IConfigModel;
+
+        [Inject]
         public var drawStoneSignalton:DrawStoneOnBoardSignal;
 
         /**
@@ -36,22 +40,49 @@ package com.imrahil.bbapps.atarigo.controller
          */        
         override public function execute():void    
         {
-            var isStoneThere:uint = gobanModel.getPlayerIDFromPlace(place.row, place.column);
+            var row:uint = place.row;
+            var column:uint = place.column;
+
+            var isStoneThere:uint = gobanModel.getStoneInfoAt(row, column);
 
             if (isStoneThere == ApplicationConstants.EMPTY_FIELD_ID)
             {
-                gobanModel.placeStoneAt(place.row, place.column);
-                drawStoneSignalton.dispatch(selectedStoneView, gobanModel.selectedPlayerID);
+                var isBreath:Boolean = checkBreaths(row, column);
 
-                if (gobanModel.selectedPlayerID == ApplicationConstants.PLAYER_ONE_ID)
+                if (isBreath)
                 {
-                    gobanModel.selectedPlayerID = ApplicationConstants.PLAYER_TWO_ID;
-                }
-                else
-                {
-                    gobanModel.selectedPlayerID = ApplicationConstants.PLAYER_ONE_ID;
+                    gobanModel.placeStoneAt(row, column);
+                    drawStoneSignalton.dispatch(selectedStoneView, gobanModel.selectedPlayerID);
+
+                    if (gobanModel.selectedPlayerID == ApplicationConstants.PLAYER_ONE_ID)
+                    {
+                        gobanModel.selectedPlayerID = ApplicationConstants.PLAYER_TWO_ID;
+                    }
+                    else
+                    {
+                        gobanModel.selectedPlayerID = ApplicationConstants.PLAYER_ONE_ID;
+                    }
                 }
             }
+        }
+
+        private function checkBreaths(row:uint, column:uint):Boolean
+        {
+            var isBreath:Boolean;
+
+            if (row > 0 && gobanModel.getStoneInfoAt(row - 1, column) == ApplicationConstants.EMPTY_FIELD_ID)
+                return true;
+
+            if (row < configModel.gobanSize.gobanRows - 1 && gobanModel.getStoneInfoAt(row + 1, column) == ApplicationConstants.EMPTY_FIELD_ID)
+                return true;
+
+            if (column > 0 && gobanModel.getStoneInfoAt(row, column - 1) == ApplicationConstants.EMPTY_FIELD_ID)
+                return true;
+
+            if (column < configModel.gobanSize.gobanColumns - 1 && gobanModel.getStoneInfoAt(row, column + 1) == ApplicationConstants.EMPTY_FIELD_ID)
+                return true;
+
+            return false;
         }
     }
 }

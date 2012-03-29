@@ -64,11 +64,11 @@ package com.imrahil.bbapps.atarigo.view.goban
         {
             if (playerID == ApplicationConstants.PLAYER_ONE_ID)
             {
-                selectedStone.color = ApplicationConstants.PLAYER_ONE_COLOR_BLACK;
+                selectedStone.placeStone(ApplicationConstants.PLAYER_ONE_COLOR_BLACK);
             }
             else
             {
-                selectedStone.color = ApplicationConstants.PLAYER_TWO_COLOR_WHITE;
+                selectedStone.placeStone(ApplicationConstants.PLAYER_TWO_COLOR_WHITE);
             }
         }
     }

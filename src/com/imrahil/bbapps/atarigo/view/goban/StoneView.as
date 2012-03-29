@@ -21,7 +21,7 @@ package com.imrahil.bbapps.atarigo.view.goban
             drawContents(stoneSize);
         }
 
-        public function set color(color_to_use:uint):void
+        public function placeStone(color_to_use:uint):void
         {
             _stone = new Shape();
             _stone.graphics.beginFill(color_to_use, 1);

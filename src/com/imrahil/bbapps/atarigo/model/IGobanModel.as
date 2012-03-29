@@ -13,9 +13,9 @@ package com.imrahil.bbapps.atarigo.model
     {
         function loadDesign(gobanGrid:Vector.<Vector.<uint>>):void;
 
+        function getStoneInfoAt(row:uint, column:uint):uint;
         function placeStoneAt(row:uint, column:uint):void;
         function removeStoneAt(row:uint, column:uint):void;
-        function getPlayerIDFromPlace(row:uint, column:uint):uint;
 
         function get selectedPlayerID():uint;
         function set selectedPlayerID(value:uint):void;

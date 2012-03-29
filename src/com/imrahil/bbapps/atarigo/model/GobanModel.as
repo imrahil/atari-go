@@ -22,6 +22,11 @@ package com.imrahil.bbapps.atarigo.model
             _gobanGrid = gobanGrid;
         }
 
+        public function getStoneInfoAt(row:uint, column:uint):uint
+        {
+            return _gobanGrid[row][column];
+        }
+
         public function placeStoneAt(row:uint, column:uint):void
         {
             _gobanGrid[row][column] = _selectedPlayerID;
@@ -30,11 +35,6 @@ package com.imrahil.bbapps.atarigo.model
         public function removeStoneAt(row:uint, column:uint):void
         {
             _gobanGrid[row][column] = ApplicationConstants.EMPTY_FIELD_ID;
-        }
-
-        public function getPlayerIDFromPlace(row:uint, column:uint):uint
-        {
-            return _gobanGrid[row][column];
         }
 
         public function get selectedPlayerID():uint
