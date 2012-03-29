@@ -18,7 +18,6 @@ package com.imrahil.bbapps.atarigo
     import flash.display.DisplayObjectContainer;
 
     import org.osflash.signals.Signal;
-
     import org.robotlegs.mvcs.SignalContext;
 
     public class AtariGoContext extends SignalContext

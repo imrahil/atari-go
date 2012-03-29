@@ -16,7 +16,7 @@ package com.imrahil.bbapps.atarigo.controller
 
     import org.robotlegs.mvcs.SignalCommand;
 
-    public final class PlaceStoneCommand extends SignalCommand 
+    public final class PlaceStoneCommand extends SignalCommand
     {
         /** PARAMETERS **/
         [Inject]

@@ -7,19 +7,15 @@
  */
 package com.imrahil.bbapps.atarigo.view
 {
-    import com.imrahil.bbapps.atarigo.constants.Resources;
     import com.imrahil.bbapps.atarigo.view.goban.GobanLayout;
     import com.imrahil.bbapps.atarigo.view.goban.GobanView;
     import com.imrahil.bbapps.atarigo.view.goban.IStoneFactory;
     import com.imrahil.bbapps.atarigo.view.ui.PlayerDetails;
 
-    import flash.display.Bitmap;
     import flash.display.Sprite;
     import flash.events.Event;
 
     import org.osflash.signals.Signal;
-
-    import qnx.ui.display.Image;
 
     public class GameView extends Sprite
     {

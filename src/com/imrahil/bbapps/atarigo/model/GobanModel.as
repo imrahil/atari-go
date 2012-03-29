@@ -8,7 +8,6 @@
 package com.imrahil.bbapps.atarigo.model
 {
     import com.imrahil.bbapps.atarigo.constants.ApplicationConstants;
-    import com.imrahil.bbapps.atarigo.model.vo.GobanSizeVO;
 
     import org.robotlegs.mvcs.*;
 

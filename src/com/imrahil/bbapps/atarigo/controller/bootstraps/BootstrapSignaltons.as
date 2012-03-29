@@ -3,7 +3,6 @@ package com.imrahil.bbapps.atarigo.controller.bootstraps
     import com.imrahil.bbapps.atarigo.signals.signaltons.ConfigCreatedSignal;
     import com.imrahil.bbapps.atarigo.signals.signaltons.DrawStoneOnBoardSignal;
     import com.imrahil.bbapps.atarigo.signals.signaltons.GameParametersSignal;
-    import com.imrahil.bbapps.atarigo.signals.StartGameSignal;
     import com.imrahil.bbapps.atarigo.signals.signaltons.StopGameSignal;
 
     import org.robotlegs.core.IInjector;

@@ -7,8 +7,6 @@
  */
 package com.imrahil.bbapps.atarigo.model
 {
-    import com.imrahil.bbapps.atarigo.model.vo.GobanSizeVO;
-
     public interface IGobanModel
     {
         function loadDesign(gobanGrid:Vector.<Vector.<uint>>):void;
