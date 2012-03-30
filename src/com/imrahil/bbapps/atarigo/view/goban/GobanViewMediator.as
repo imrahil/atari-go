@@ -11,6 +11,7 @@ package com.imrahil.bbapps.atarigo.view.goban
     import com.imrahil.bbapps.atarigo.model.vo.StoneVO;
     import com.imrahil.bbapps.atarigo.signals.PlaceStoneSignal;
     import com.imrahil.bbapps.atarigo.signals.signaltons.DrawStoneOnBoardSignal;
+    import com.imrahil.bbapps.atarigo.signals.signaltons.WinMessageSignal;
 
     import org.robotlegs.mvcs.SignalMediator;
 
@@ -27,6 +28,9 @@ package com.imrahil.bbapps.atarigo.view.goban
          */
         [Inject]
         public var drawStoneSignal:DrawStoneOnBoardSignal;
+
+        [Inject]
+        public var winMessageSignal:WinMessageSignal;
 
         /**
          * SIGNAL -> COMMAND
@@ -49,15 +53,8 @@ package com.imrahil.bbapps.atarigo.view.goban
         override public function onRegister():void
         {
             addToSignal(drawStoneSignal, drawStone);
+            addToSignal(winMessageSignal, onWinMessage);
             addToSignal(view.placeStoneSignal, onPlaceSignal)
-        }
-
-        private function onPlaceSignal(row:uint, column:uint, selectedStone:IStoneView):void
-        {
-            var place:StoneVO = new StoneVO();
-            place.row = row;
-            place.column = column;
-            placeStoneSignal.dispatch(place, selectedStone);
         }
 
         private function drawStone(selectedStone:IStoneView, playerID:uint):void
@@ -70,6 +67,19 @@ package com.imrahil.bbapps.atarigo.view.goban
             {
                 selectedStone.placeStone(ApplicationConstants.PLAYER_TWO_COLOR_WHITE);
             }
+        }
+
+        private function onWinMessage(selectedPlayerID:uint):void
+        {
+            signalMap.removeFromSignal(view.placeStoneSignal, onPlaceSignal);
+        }
+
+        private function onPlaceSignal(row:uint, column:uint, selectedStone:IStoneView):void
+        {
+            var place:StoneVO = new StoneVO();
+            place.row = row;
+            place.column = column;
+            placeStoneSignal.dispatch(place, selectedStone);
         }
     }
 }

@@ -63,6 +63,12 @@ package com.imrahil.bbapps.atarigo.view
             playerTwoDetails.playerName = playerTwoName;
         }
 
+        public function setPlayerTurn(playerOneTurn:Boolean, playerTwoTurn:Boolean):void
+        {
+            playerOneDetails.playerTurn = playerOneTurn;
+            playerTwoDetails.playerTurn = playerTwoTurn;
+        }
+
         public function setWinner(selectedPlayerID:uint):void
         {
             CONFIG::device

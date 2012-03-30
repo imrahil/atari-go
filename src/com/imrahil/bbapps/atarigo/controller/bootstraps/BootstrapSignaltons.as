@@ -1,5 +1,6 @@
 package com.imrahil.bbapps.atarigo.controller.bootstraps
 {
+    import com.imrahil.bbapps.atarigo.signals.signaltons.ChangeTurnSignal;
     import com.imrahil.bbapps.atarigo.signals.signaltons.ConfigCreatedSignal;
     import com.imrahil.bbapps.atarigo.signals.signaltons.DrawStoneOnBoardSignal;
     import com.imrahil.bbapps.atarigo.signals.signaltons.GameParametersSignal;
@@ -18,6 +19,7 @@ package com.imrahil.bbapps.atarigo.controller.bootstraps
             injector.mapSingleton(StopGameSignal);
 
             injector.mapSingleton(DrawStoneOnBoardSignal);
+            injector.mapSingleton(ChangeTurnSignal);
             injector.mapSingleton(WinMessageSignal);
         }
     }

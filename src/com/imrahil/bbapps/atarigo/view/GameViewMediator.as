@@ -7,8 +7,10 @@
  */
 package com.imrahil.bbapps.atarigo.view
 {
+    import com.imrahil.bbapps.atarigo.constants.ApplicationConstants;
     import com.imrahil.bbapps.atarigo.model.vo.GobanSizeVO;
     import com.imrahil.bbapps.atarigo.model.vo.PlayerNamesVO;
+    import com.imrahil.bbapps.atarigo.signals.signaltons.ChangeTurnSignal;
     import com.imrahil.bbapps.atarigo.signals.signaltons.GameParametersSignal;
     import com.imrahil.bbapps.atarigo.signals.signaltons.StopGameSignal;
     import com.imrahil.bbapps.atarigo.signals.signaltons.WinMessageSignal;
@@ -33,6 +35,9 @@ package com.imrahil.bbapps.atarigo.view
         public var gameParameters:GameParametersSignal;
 
         [Inject]
+        public var changeTurnSignal:ChangeTurnSignal;
+
+        [Inject]
         public var winMessageSignal:WinMessageSignal;
 
         /**
@@ -54,8 +59,21 @@ package com.imrahil.bbapps.atarigo.view
         override public function onRegister():void
         {
             addToSignal(gameParameters, onGameParameters);
+            addToSignal(changeTurnSignal, onTurnChange);
             addToSignal(winMessageSignal, onWinMessage);
             addToSignal(view.exitSignal, onExitSignal);
+        }
+
+        private function onTurnChange(selectedPlayerID:uint):void
+        {
+            if (selectedPlayerID == ApplicationConstants.PLAYER_ONE_ID)
+            {
+                view.setPlayerTurn(true, false);
+            }
+            else
+            {
+                view.setPlayerTurn(false, true);
+            }
         }
 
         private function onWinMessage(selectedPlayerID:uint):void

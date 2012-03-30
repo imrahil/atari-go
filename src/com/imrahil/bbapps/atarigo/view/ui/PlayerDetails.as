@@ -24,6 +24,7 @@ package com.imrahil.bbapps.atarigo.view.ui
 
         protected var _playerColor:Shape;
         protected var _playerNameLabel:PlayerNameLargeLabel;
+        protected var _playerTurn:Shape;
 
         public function PlayerDetails()
         {
@@ -33,11 +34,17 @@ package com.imrahil.bbapps.atarigo.view.ui
         public function set playerName(value:String):void
         {
             _playerNameLabel.text = value;
+            _playerTurn.x = _playerNameLabel.x + _playerNameLabel.textWidth + 30;
         }
 
         public function get playerName():String
         {
             return _playerNameLabel.text;
+        }
+
+        public function set playerTurn(status:Boolean):void
+        {
+            _playerTurn.visible = status;
         }
 
         public function set playerColor(color_to_use:uint):void
@@ -60,6 +67,13 @@ package com.imrahil.bbapps.atarigo.view.ui
 
             _playerNameLabel.x = 55;
             _playerNameLabel.y = 10;
+
+            _playerTurn = new Shape();
+            _playerTurn.graphics.beginFill(0x993300, 1);
+            _playerTurn.graphics.drawCircle(0, 40, 10);
+            _playerTurn.graphics.endFill();
+            _playerTurn.visible = false;
+            addChild(_playerTurn);
 
             var _exitBtn:ExitGameButton = new ExitGameButton();
             _exitBtn.addEventListener(MouseEvent.CLICK, onExitBtnClick);

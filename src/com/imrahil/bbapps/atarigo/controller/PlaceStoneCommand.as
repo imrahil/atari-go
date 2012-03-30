@@ -13,6 +13,7 @@ package com.imrahil.bbapps.atarigo.controller
     import com.imrahil.bbapps.atarigo.model.vo.GroupVO;
     import com.imrahil.bbapps.atarigo.model.vo.ListOfGroupsVO;
     import com.imrahil.bbapps.atarigo.model.vo.StoneVO;
+    import com.imrahil.bbapps.atarigo.signals.signaltons.ChangeTurnSignal;
     import com.imrahil.bbapps.atarigo.signals.signaltons.DrawStoneOnBoardSignal;
     import com.imrahil.bbapps.atarigo.signals.signaltons.WinMessageSignal;
     import com.imrahil.bbapps.atarigo.view.goban.IStoneView;
@@ -37,6 +38,9 @@ package com.imrahil.bbapps.atarigo.controller
 
         [Inject]
         public var drawStoneSignalton:DrawStoneOnBoardSignal;
+
+        [Inject]
+        public var changeTurnSignal:ChangeTurnSignal;
 
         [Inject]
         public var winMessageSignal:WinMessageSignal;
@@ -66,9 +70,17 @@ package com.imrahil.bbapps.atarigo.controller
 
                 updateStonesFriendGroups(newStone, listOfNeighborFriends);
 
-                checkWinner(newStone, listOfNeighborEnemies);
-
                 drawStoneSignalton.dispatch(selectedStoneView, gobanModel.selectedPlayerID);
+
+                var winner:Boolean = checkWinner(newStone, listOfNeighborEnemies);
+
+                if (winner)
+                {
+                    winMessageSignal.dispatch(gobanModel.selectedPlayerID);
+                }
+                else
+                {
+                }
 
                 if (gobanModel.selectedPlayerID == ApplicationConstants.PLAYER_ONE_ID)
                 {
@@ -77,6 +89,11 @@ package com.imrahil.bbapps.atarigo.controller
                 else
                 {
                     gobanModel.selectedPlayerID = ApplicationConstants.PLAYER_ONE_ID;
+                }
+
+                if (!winner)
+                {
+                    changeTurnSignal.dispatch(gobanModel.selectedPlayerID);
                 }
             }
         }
@@ -274,22 +291,17 @@ package com.imrahil.bbapps.atarigo.controller
             addStoneToGroup(stone, theGroup);
         }
 
-        private function checkWinner(stone:StoneVO, listOfNeighborEnemies:ListOfGroupsVO):void
+        private function checkWinner(stone:StoneVO, listOfNeighborEnemies:ListOfGroupsVO):Boolean
         {
             for each (var currentGroup:GroupVO in listOfNeighborEnemies.getElements())
             {
                 if (currentGroup.hasNoLiberty())
                 {
-                    if (currentGroup.playerID == ApplicationConstants.PLAYER_ONE_ID)
-                    {
-                        winMessageSignal.dispatch(ApplicationConstants.PLAYER_TWO_ID);
-                    }
-                    else
-                    {
-                        winMessageSignal.dispatch(ApplicationConstants.PLAYER_ONE_ID);
-                    }
+                    return true;
                 }
             }
+
+            return false;
         }
     }
 }
