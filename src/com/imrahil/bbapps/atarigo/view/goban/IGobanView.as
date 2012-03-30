@@ -10,7 +10,5 @@ package com.imrahil.bbapps.atarigo.view.goban
     public interface IGobanView
     {
         function setGobanSize(rows:uint, columns:uint):void;
-
-        function set groutColor(color:uint):void;
     }
 }

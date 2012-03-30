@@ -8,7 +8,7 @@
 package com.imrahil.bbapps.atarigo.view.goban
 {
     import com.imrahil.bbapps.atarigo.constants.ApplicationConstants;
-    import com.imrahil.bbapps.atarigo.model.vo.PlaceVO;
+    import com.imrahil.bbapps.atarigo.model.vo.StoneVO;
     import com.imrahil.bbapps.atarigo.signals.PlaceStoneSignal;
     import com.imrahil.bbapps.atarigo.signals.signaltons.DrawStoneOnBoardSignal;
 
@@ -54,7 +54,7 @@ package com.imrahil.bbapps.atarigo.view.goban
 
         private function onPlaceSignal(row:uint, column:uint, selectedStone:IStoneView):void
         {
-            var place:PlaceVO = new PlaceVO();
+            var place:StoneVO = new StoneVO();
             place.row = row;
             place.column = column;
             placeStoneSignal.dispatch(place, selectedStone);

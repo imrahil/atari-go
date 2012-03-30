@@ -39,7 +39,7 @@ package com.imrahil.bbapps.atarigo.view.goban
         protected function drawContents(tileSize:Number):void
         {
             _fill = new Shape();
-            _fill.graphics.beginFill(0xFF0000, 0.25);
+            _fill.graphics.beginFill(0xFF0000, 0);
             var drawingCoord:Number = tileSize / 2;
             _fill.graphics.drawRect(-drawingCoord, -drawingCoord, tileSize, tileSize);
             _fill.graphics.endFill();

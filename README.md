@@ -6,6 +6,7 @@ Copyright ©2012 Jarek Szczepanski <imrahil@imrahil.com>
 (http://senseis.xmp.net/?AtariGo)
 
 Source code is inspired by examples from O'Reilly book "ActionScript Developer's Guide to Robotlegs" - https://github.com/Stray/robotlegs-examples-OreillyBook
+Go validation logic "inspired" by Go applet - http://javaboutique.internet.com/Go/
 
 SignalMap & SignalMediator - https://github.com/Stray/robotlegs-utilities-SignalMediator
 

@@ -102,7 +102,6 @@ package com.imrahil.bbapps.atarigo.view
 
             playerOneDetails.x = 0;
             playerOneDetails.y = 812;
-//            playerOneDetails.setName("Player 1");
 
             playerTwoDetails = new PlayerDetails();
             playerTwoDetails.exitSignal.add(onPlayerTwoExit);
@@ -111,7 +110,6 @@ package com.imrahil.bbapps.atarigo.view
             playerTwoDetails.x = stage.stageWidth;
             playerTwoDetails.y = 212;
             playerTwoDetails.rotationZ = 180;
-//            playerTwoDetails.setName("Player 2");
         }
 
         private function onPlayerOneExit():void

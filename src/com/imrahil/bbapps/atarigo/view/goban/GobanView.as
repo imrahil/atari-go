@@ -13,7 +13,6 @@ package com.imrahil.bbapps.atarigo.view.goban
 
     public class GobanView extends Sprite implements IGobanView
     {
-        protected var _groutColor:uint;
         protected var _stoneFactory:IStoneFactory;
         protected var _groutLines:GroutLinesView;
         protected var _stonesView:GobanStonesView;
@@ -29,15 +28,6 @@ package com.imrahil.bbapps.atarigo.view.goban
         {
             addGrout(rows, columns);
             addTiles(rows, columns);
-        }
-
-        public function set groutColor(color:uint):void
-        {
-            if (_groutLines && _groutColor != color)
-            {
-                _groutLines.color = color;
-            }
-            _groutColor = color;
         }
 
         protected function addTiles(rows:uint, columns:uint):void

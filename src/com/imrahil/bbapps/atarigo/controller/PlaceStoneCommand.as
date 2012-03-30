@@ -10,9 +10,11 @@ package com.imrahil.bbapps.atarigo.controller
     import com.imrahil.bbapps.atarigo.constants.ApplicationConstants;
     import com.imrahil.bbapps.atarigo.model.IConfigModel;
     import com.imrahil.bbapps.atarigo.model.IGobanModel;
-    import com.imrahil.bbapps.atarigo.model.vo.PlaceVO;
-    import com.imrahil.bbapps.atarigo.signals.CheckAllStonesSignal;
+    import com.imrahil.bbapps.atarigo.model.vo.GroupVO;
+    import com.imrahil.bbapps.atarigo.model.vo.ListOfGroupsVO;
+    import com.imrahil.bbapps.atarigo.model.vo.StoneVO;
     import com.imrahil.bbapps.atarigo.signals.signaltons.DrawStoneOnBoardSignal;
+    import com.imrahil.bbapps.atarigo.signals.signaltons.WinMessageSignal;
     import com.imrahil.bbapps.atarigo.view.goban.IStoneView;
 
     import org.robotlegs.mvcs.SignalCommand;
@@ -21,7 +23,7 @@ package com.imrahil.bbapps.atarigo.controller
     {
         /** PARAMETERS **/
         [Inject]
-        public var place:PlaceVO;
+        public var stone:StoneVO;
 
         [Inject]
         public var selectedStoneView:IStoneView;
@@ -34,62 +36,202 @@ package com.imrahil.bbapps.atarigo.controller
         public var configModel:IConfigModel;
 
         [Inject]
-        public var checkAllStonesSignal:CheckAllStonesSignal;
+        public var drawStoneSignalton:DrawStoneOnBoardSignal;
 
         [Inject]
-        public var drawStoneSignalton:DrawStoneOnBoardSignal;
+        public var winMessageSignal:WinMessageSignal;
 
         /**
          * Method handle the logic for <code>PlaceStoneCommand</code>
          */        
         override public function execute():void    
         {
-            var row:uint = place.row;
-            var column:uint = place.column;
+            var row:uint = stone.row;
+            var column:uint = stone.column;
 
-            var isStoneThere:uint = gobanModel.getStoneInfoAt(row, column);
+            var selectedPlace:StoneVO = gobanModel.getStoneAt(row, column);
 
-            if (isStoneThere == ApplicationConstants.EMPTY_FIELD_ID)
+            if (selectedPlace.state == ApplicationConstants.EMPTY_FIELD_ID)
             {
-                var isBreath:Boolean = checkBreaths(row, column);
+                var newStone:StoneVO = gobanModel.addNewStone(row, column);
+                newStone.state = gobanModel.selectedPlayerID;
 
-                if (isBreath)
+                var listOfNeighborFriends:ListOfGroupsVO = new ListOfGroupsVO();
+                var listOfNeighborEnemies:ListOfGroupsVO = new ListOfGroupsVO();
+
+                visitNewStoneNeighbors(newStone, listOfNeighborFriends, listOfNeighborEnemies);
+
+                removeNeighborsLiberty(newStone, listOfNeighborFriends, listOfNeighborEnemies);
+
+                updateStonesFriendGroups(newStone, listOfNeighborFriends);
+
+                checkWinner(newStone, listOfNeighborEnemies);
+
+                drawStoneSignalton.dispatch(selectedStoneView, gobanModel.selectedPlayerID);
+
+                if (gobanModel.selectedPlayerID == ApplicationConstants.PLAYER_ONE_ID)
                 {
-                    gobanModel.placeStoneAt(row, column);
-                    drawStoneSignalton.dispatch(selectedStoneView, gobanModel.selectedPlayerID);
-
-                    checkAllStonesSignal.dispatch(gobanModel.selectedPlayerID);
-
-
-                    if (gobanModel.selectedPlayerID == ApplicationConstants.PLAYER_ONE_ID)
-                    {
-                        gobanModel.selectedPlayerID = ApplicationConstants.PLAYER_TWO_ID;
-                    }
-                    else
-                    {
-                        gobanModel.selectedPlayerID = ApplicationConstants.PLAYER_ONE_ID;
-                    }
+                    gobanModel.selectedPlayerID = ApplicationConstants.PLAYER_TWO_ID;
+                }
+                else
+                {
+                    gobanModel.selectedPlayerID = ApplicationConstants.PLAYER_ONE_ID;
                 }
             }
         }
 
-        private function checkBreaths(row:uint, column:uint):Boolean
+        private function visitNewStoneNeighbors(stone:StoneVO, listOfNeighborFriends:ListOfGroupsVO, listOfNeighborEnemies:ListOfGroupsVO):void
         {
-            var isBreath:Boolean;
+            var currentX:uint;
+            var currentY:uint;
 
-            if (row > 0 && gobanModel.getStoneInfoAt(row - 1, column) == ApplicationConstants.EMPTY_FIELD_ID)
-                return true;
+            if (stone.row > 0)
+            {
+               currentX = stone.row - 1;
+               currentY = stone.column;
 
-            if (row < configModel.gobanSize.gobanRows - 1 && gobanModel.getStoneInfoAt(row + 1, column) == ApplicationConstants.EMPTY_FIELD_ID)
-                return true;
+               processNeighbor(stone, currentX, currentY, listOfNeighborFriends, listOfNeighborEnemies);
+            }
 
-            if (column > 0 && gobanModel.getStoneInfoAt(row, column - 1) == ApplicationConstants.EMPTY_FIELD_ID)
-                return true;
+            if (stone.column > 0)
+            {
+               currentX = stone.row;
+               currentY = stone.column - 1;
 
-            if (column < configModel.gobanSize.gobanColumns - 1 && gobanModel.getStoneInfoAt(row, column + 1) == ApplicationConstants.EMPTY_FIELD_ID)
-                return true;
+               processNeighbor(stone, currentX, currentY, listOfNeighborFriends, listOfNeighborEnemies);
+            }
 
-            return false;
+            if (stone.row < configModel.gobanSize.gobanRows - 1)
+            {
+               currentX = stone.row + 1;
+               currentY = stone.column;
+
+               processNeighbor(stone, currentX, currentY, listOfNeighborFriends, listOfNeighborEnemies);
+            }
+
+            if (stone.column < configModel.gobanSize.gobanColumns - 1)
+            {
+               currentX = stone.row;
+               currentY = stone.column + 1;
+
+               processNeighbor(stone, currentX, currentY, listOfNeighborFriends, listOfNeighborEnemies);
+            }
+        }
+
+        private function processNeighbor(stone:StoneVO, currentX:uint, currentY:uint, listOfNeighborFriends:ListOfGroupsVO, listOfNeighborEnemies:ListOfGroupsVO):void
+        {
+            if (gobanModel.getStoneAt(currentX, currentY).state == ApplicationConstants.EMPTY_FIELD_ID)
+            {
+                stone.liberties.add(gobanModel.getStoneAt(currentX, currentY));
+                gobanModel.getStoneAt(currentX, currentY).liberties.deleteElement(stone);
+                return;
+            }
+            else if (gobanModel.getStoneAt(currentX, currentY).state == stone.state)
+            {
+                listOfNeighborFriends.add(gobanModel.getStoneAt(currentX, currentY).group);
+            }
+            else
+            {
+                listOfNeighborEnemies.add(gobanModel.getStoneAt(currentX, currentY).group);
+            }
+        }
+
+        private function removeNeighborsLiberty(stone:StoneVO, listOfNeighborFriends:ListOfGroupsVO, listOfNeighborEnemies:ListOfGroupsVO):void
+        {
+            var currentGroup:GroupVO;
+
+            for each (currentGroup in listOfNeighborFriends.getElements())
+            {
+                currentGroup.liberties.deleteElement(stone);
+            }
+
+            for each (currentGroup in listOfNeighborEnemies.getElements())
+            {
+                currentGroup.liberties.deleteElement(stone);
+            }
+        }
+
+        private function updateStonesFriendGroups(stone:StoneVO, listOfNeighborFriends:ListOfGroupsVO):void
+        {
+            if (listOfNeighborFriends.length() == 0)
+            {
+                newBornGroup(stone);
+            }
+            else if (listOfNeighborFriends.length() == 1)
+            {
+                addStoneToGroup(stone, listOfNeighborFriends.first());
+            }
+            else
+            {
+                connectMoreGroups(stone, listOfNeighborFriends);
+            }
+        }
+
+        private function newBornGroup(stone:StoneVO):void
+        {
+            var newGroup:GroupVO = new GroupVO();
+            newGroup.init(stone);
+            stone.group = newGroup;
+
+            if (newGroup.playerID == ApplicationConstants.PLAYER_ONE_ID)
+            {
+                gobanModel.blackGroups.add(newGroup);
+            }
+            else
+            {
+                gobanModel.whiteGroups.add(newGroup);
+            }
+        }
+
+        private function addStoneToGroup(stone:StoneVO, groupVO:GroupVO):void
+        {
+            groupVO.stones.add(stone);
+
+            stone.group = groupVO;
+
+            groupVO.liberties.appendList(stone.liberties);
+        }
+
+        private function connectMoreGroups(stone:StoneVO, listOfNeighborFriends:ListOfGroupsVO):void
+        {
+            var theGroup:GroupVO = listOfNeighborFriends.first();
+
+            for each (var oneMoreGroup:GroupVO in listOfNeighborFriends)
+            {
+                oneMoreGroup.stones.setGroup(theGroup);
+
+                theGroup.liberties.appendList(oneMoreGroup.liberties);
+                theGroup.stones.appendList(oneMoreGroup.stones);
+
+                if (stone.state == ApplicationConstants.PLAYER_ONE_ID)
+                {
+                    gobanModel.blackGroups.deleteElement(oneMoreGroup);
+                }
+                else
+                {
+                    gobanModel.whiteGroups.deleteElement(oneMoreGroup);
+                }
+            }
+
+            addStoneToGroup(stone, theGroup);
+        }
+
+        private function checkWinner(stone:StoneVO, listOfNeighborEnemies:ListOfGroupsVO):void
+        {
+            for each (var currentGroup:GroupVO in listOfNeighborEnemies.getElements())
+            {
+                if (currentGroup.hasNoLiberty())
+                {
+                    if (currentGroup.playerID == ApplicationConstants.PLAYER_ONE_ID)
+                    {
+                        winMessageSignal.dispatch(ApplicationConstants.PLAYER_TWO_ID);
+                    }
+                    else
+                    {
+                        winMessageSignal.dispatch(ApplicationConstants.PLAYER_ONE_ID);
+                    }
+                }
+            }
         }
     }
 }

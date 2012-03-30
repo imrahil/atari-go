@@ -16,24 +16,50 @@ package com.imrahil.bbapps.atarigo.view.goban
     {
         public function GroutLinesView(rows:uint, columns:uint, stoneSize:Number)
         {
-            drawLines(rows - 1, columns - 1, stoneSize);
-        }
-
-        public function set color(groutColor:uint):void
-        {
-            var useColor:ColorTransform = new ColorTransform();
-            useColor.color = groutColor;
-            transform.colorTransform = useColor;
+            drawLines(rows, columns, stoneSize);
         }
 
         protected function drawLines(rows:uint, columns:uint, stoneSize:Number):void
         {
             graphics.lineStyle(1, 0, 1, true, LineScaleMode.NORMAL, CapsStyle.NONE);
-            var verticalLineHeight:Number = (rows * stoneSize);
-            var horizontalLineWidth:Number = (columns * stoneSize);
+            var verticalLineHeight:Number = ((rows - 1) * stoneSize);
+            var horizontalLineWidth:Number = ((columns - 1) * stoneSize);
 
-            drawVerticalLines(columns + 1, verticalLineHeight, stoneSize);
-            drawHorizontalLines(rows + 1, horizontalLineWidth, stoneSize);
+            drawVerticalLines(columns, verticalLineHeight, stoneSize);
+            drawHorizontalLines(rows, horizontalLineWidth, stoneSize);
+
+            var hishiTengenSize:Number = stoneSize / 6;
+            drawHoshi(rows, columns, stoneSize, hishiTengenSize);
+            drawTengen(Math.floor(rows / 2), Math.floor(columns / 2), stoneSize, hishiTengenSize);
+        }
+
+        private function drawHoshi(rows:uint, columns:uint, stoneSize:Number, hishiTengenSize:Number):void
+        {
+            graphics.beginFill(0x000000);
+
+            if (rows <= 9)
+            {
+                graphics.drawCircle(2 * stoneSize + stoneSize / 2, 2 * stoneSize + stoneSize / 2, hishiTengenSize);
+                graphics.drawCircle((rows - 3) * stoneSize + stoneSize / 2, 2 * stoneSize + stoneSize / 2, hishiTengenSize);
+                graphics.drawCircle(2 * stoneSize + stoneSize / 2, (columns - 3) * stoneSize + stoneSize / 2, hishiTengenSize);
+                graphics.drawCircle((rows - 3) * stoneSize + stoneSize / 2, (columns - 3) * stoneSize + stoneSize / 2, hishiTengenSize);
+            }
+            else
+            {
+                graphics.drawCircle(3 * stoneSize + stoneSize / 2, 3 * stoneSize + stoneSize / 2, hishiTengenSize);
+                graphics.drawCircle((rows - 4) * stoneSize + stoneSize / 2, 3 * stoneSize + stoneSize / 2, hishiTengenSize);
+                graphics.drawCircle(3 * stoneSize + stoneSize / 2, (columns - 4) * stoneSize + stoneSize / 2, hishiTengenSize);
+                graphics.drawCircle((rows - 4) * stoneSize + stoneSize / 2, (columns - 4) * stoneSize + stoneSize / 2, hishiTengenSize);
+            }
+
+            graphics.endFill();
+        }
+
+        private function drawTengen(row:uint, column:uint, stoneSize:Number, hishiTengenSize:Number):void
+        {
+            graphics.beginFill(0x000000);
+            graphics.drawCircle(row * stoneSize + stoneSize / 2, column * stoneSize + stoneSize / 2, hishiTengenSize);
+            graphics.endFill();
         }
 
         protected function drawVerticalLines(noOfLines:uint, lineHeight:Number, spacing:Number):void

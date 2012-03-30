@@ -28,7 +28,7 @@ package com.imrahil.bbapps.atarigo.controller
          */        
         override public function execute():void    
         {
-            gobanModel.loadDesign(new EmptyGoban(configModel.gobanSize.gobanRows, configModel.gobanSize.gobanColumns).grid);
+            gobanModel.loadDesign(new EmptyGoban(configModel.gobanSize.gobanRows, configModel.gobanSize.gobanColumns).goban);
             gobanModel.selectedPlayerID = ApplicationConstants.PLAYER_ONE_ID;
         }
     }

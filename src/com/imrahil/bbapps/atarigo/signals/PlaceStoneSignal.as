@@ -7,7 +7,7 @@
  */
 package com.imrahil.bbapps.atarigo.signals
 {
-    import com.imrahil.bbapps.atarigo.model.vo.PlaceVO;
+    import com.imrahil.bbapps.atarigo.model.vo.StoneVO;
     import com.imrahil.bbapps.atarigo.view.goban.IStoneView;
 
     import org.osflash.signals.Signal;
@@ -16,7 +16,7 @@ package com.imrahil.bbapps.atarigo.signals
     {
         public function PlaceStoneSignal()
         {
-            super(PlaceVO, IStoneView);
+            super(StoneVO, IStoneView);
         }
     }
 }
