@@ -19,6 +19,11 @@ package com.imrahil.bbapps.atarigo.model.vo
                 hiddenList.push(toAdd);
         }
 
+        public function length():uint
+        {
+            return hiddenList.length;
+        }
+
         public function deleteElement(stone:StoneVO):void
         {
             VectorUtils.removeItem(hiddenList, stone);

@@ -9,7 +9,10 @@ package com.imrahil.bbapps.atarigo.constants
 {
 	public class Resources
 	{
-		[Embed(source="/assets/Blank_Go_board_9x9.png")]
-		public static const GOBAN_IMAGE:Class;
+//		[Embed(source="/assets/Go_b.fxg")]
+//		public static const STONE_BLACK:Class;
+//
+//		[Embed(source="/assets/Go_w.fxg")]
+//		public static const STONE_WHITE:Class;
 	}
 }

@@ -28,7 +28,6 @@ package com.imrahil.bbapps.atarigo.model.vo
             {
                  this.add(currentStone);
             }
-
         }
 
         public function setGroup(groupToSetTo:GroupVO):void

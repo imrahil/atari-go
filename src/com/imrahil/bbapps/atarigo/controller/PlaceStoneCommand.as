@@ -50,8 +50,9 @@ package com.imrahil.bbapps.atarigo.controller
             var column:uint = stone.column;
 
             var selectedPlace:StoneVO = gobanModel.getStoneAt(row, column);
+            selectedPlace.state = gobanModel.selectedPlayerID;
 
-            if (selectedPlace.state == ApplicationConstants.EMPTY_FIELD_ID)
+            if (isLegalMove(selectedPlace))
             {
                 var newStone:StoneVO = gobanModel.addNewStone(row, column);
                 newStone.state = gobanModel.selectedPlayerID;
@@ -78,6 +79,63 @@ package com.imrahil.bbapps.atarigo.controller
                     gobanModel.selectedPlayerID = ApplicationConstants.PLAYER_ONE_ID;
                 }
             }
+        }
+
+        private function isLegalMove(selectedPlace:StoneVO):Boolean
+        {
+            if (selectedPlace.state == ApplicationConstants.EMPTY_FIELD_ID)
+            {
+                return false;
+            }
+            
+            if (countLiberties(selectedPlace.row, selectedPlace.column) > 0)
+            {
+                return true
+            }
+
+            var listOfNeighborFriends:ListOfGroupsVO = new ListOfGroupsVO();
+            var listOfNeighborEnemies:ListOfGroupsVO = new ListOfGroupsVO();
+
+            visitNewStoneNeighbors(selectedPlace, listOfNeighborFriends, listOfNeighborEnemies);
+
+            for each (var enemies:GroupVO in listOfNeighborEnemies.getElements())
+            {
+                if (enemies.liberties.length() <= 1)
+                  return true;
+            }
+
+            // check if we commit suicide by this move
+            var newOwnGroupNrLiberties:int = 0;
+
+            for each (var friends:GroupVO in listOfNeighborFriends.getElements())
+            {
+                newOwnGroupNrLiberties += friends.liberties.length();
+                newOwnGroupNrLiberties -= 1;
+            }
+
+            if (newOwnGroupNrLiberties > 0)
+                return true;
+            else
+                return false;
+        }
+
+        private function countLiberties(x:uint, y:uint):int
+        {
+            var count:int = 0;
+
+            if (x > 0)
+              if (gobanModel.getStoneAt(x - 1, y).state == ApplicationConstants.EMPTY_FIELD_ID) count++;
+
+            if (x < configModel.gobanSize.gobanRows - 1)
+              if (gobanModel.getStoneAt(x + 1, y).state == ApplicationConstants.EMPTY_FIELD_ID) count++;
+
+            if (y > 0)
+              if (gobanModel.getStoneAt(x, y - 1).state == ApplicationConstants.EMPTY_FIELD_ID) count++;
+
+            if (y < configModel.gobanSize.gobanColumns - 1)
+              if (gobanModel.getStoneAt(x, y + 1).state == ApplicationConstants.EMPTY_FIELD_ID) count++;
+
+            return count;
         }
 
         private function visitNewStoneNeighbors(stone:StoneVO, listOfNeighborFriends:ListOfGroupsVO, listOfNeighborEnemies:ListOfGroupsVO):void

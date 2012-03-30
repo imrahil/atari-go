@@ -21,7 +21,7 @@ package com.imrahil.bbapps.atarigo.model.vo
 
         public function length():uint
         {
-          return hiddenList.length;
+            return hiddenList.length;
         }
 
         public function first():GroupVO
