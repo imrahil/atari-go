@@ -78,11 +78,11 @@ package com.imrahil.bbapps.atarigo.view
 
                 if (selectedPlayerID == ApplicationConstants.PLAYER_ONE_ID)
                 {
-                    message = playerOneDetails.playerName + " - won a game!";
+                    message = playerOneDetails.playerName + " is a winner!";
                 }
                 else
                 {
-                    message = playerTwoDetails.playerName + " - won a game!";
+                    message = playerTwoDetails.playerName + " is a winner!";
                 }
 
                 aboutDialog.title = "Winner!";
@@ -90,14 +90,8 @@ package com.imrahil.bbapps.atarigo.view
 
                 aboutDialog.addButton("OK");
                 aboutDialog.dialogSize = DialogSize.SIZE_SMALL;
-                aboutDialog.addEventListener(Event.SELECT, onClose);
                 aboutDialog.show(IowWindow.getAirWindow().group);
             }
-        }
-
-        private function onClose(event:Event):void
-        {
-            exitSignal.dispatch();
         }
 
         private function addPlayerDetails():void
