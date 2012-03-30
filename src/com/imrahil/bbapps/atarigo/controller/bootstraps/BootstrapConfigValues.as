@@ -16,7 +16,7 @@ package com.imrahil.bbapps.atarigo.controller.bootstraps
     {
         public function BootstrapConfigValues(injector:IInjector)
         {
-            injector.mapValue(DefaultPlayerNames, new DefaultPlayerNames("Player Raz", "Player Dwa"));
+            injector.mapValue(DefaultPlayerNames, new DefaultPlayerNames("Player One", "Player Two"));
             injector.mapValue(DefaultGobanSize, new DefaultGobanSize(9, 9));
         }
     }

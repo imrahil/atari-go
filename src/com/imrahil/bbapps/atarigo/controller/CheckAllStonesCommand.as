@@ -42,12 +42,15 @@ package com.imrahil.bbapps.atarigo.controller
             {
                 for (var j:int = 0; j < columns; j++)
                 {
-                    var isBreath:Boolean = checkBreaths(i, j);
-
-                    if (!isBreath)
+                    if (gobanModel.getStoneInfoAt(i, j) != ApplicationConstants.EMPTY_FIELD_ID)
                     {
-                        winMessageSignal.dispatch(selectedPlayerID);
-                        return;
+                        var isBreath:Boolean = checkBreaths(i, j);
+
+                        if (!isBreath)
+                        {
+                            winMessageSignal.dispatch(selectedPlayerID);
+                            return;
+                        }
                     }
                 }
             }

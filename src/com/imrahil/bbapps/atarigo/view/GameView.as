@@ -72,11 +72,11 @@ package com.imrahil.bbapps.atarigo.view
 
                 if (selectedPlayerID == ApplicationConstants.PLAYER_ONE_ID)
                 {
-                    message = playerOneDetails.playerName + "won a game!";
+                    message = playerOneDetails.playerName + " - won a game!";
                 }
                 else
                 {
-                    message = playerTwoDetails.playerName + "won a game!";
+                    message = playerTwoDetails.playerName + " - won a game!";
                 }
 
                 aboutDialog.title = "Winner!";
