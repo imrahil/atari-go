@@ -102,6 +102,7 @@ package com.imrahil.bbapps.atarigo.view
 
             playerOneDetails.x = 0;
             playerOneDetails.y = 812;
+            playerOneDetails.playerColor = ApplicationConstants.PLAYER_ONE_COLOR_BLACK;
 
             playerTwoDetails = new PlayerDetails();
             playerTwoDetails.exitSignal.add(onPlayerTwoExit);
@@ -110,6 +111,7 @@ package com.imrahil.bbapps.atarigo.view
             playerTwoDetails.x = stage.stageWidth;
             playerTwoDetails.y = 212;
             playerTwoDetails.rotationZ = 180;
+            playerTwoDetails.playerColor = ApplicationConstants.PLAYER_TWO_COLOR_WHITE;
         }
 
         private function onPlayerOneExit():void
