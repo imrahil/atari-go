@@ -54,9 +54,8 @@ package com.imrahil.bbapps.atarigo.controller
             var column:uint = stone.column;
 
             var selectedPlace:StoneVO = gobanModel.getStoneAt(row, column);
-            selectedPlace.state = gobanModel.selectedPlayerID;
 
-            if (isLegalMove(selectedPlace))
+            if (isLegalMove(selectedPlace, gobanModel.selectedPlayerID))
             {
                 var newStone:StoneVO = gobanModel.addNewStone(row, column);
                 newStone.state = gobanModel.selectedPlayerID;
@@ -78,9 +77,6 @@ package com.imrahil.bbapps.atarigo.controller
                 {
                     winMessageSignal.dispatch(gobanModel.selectedPlayerID);
                 }
-                else
-                {
-                }
 
                 if (gobanModel.selectedPlayerID == ApplicationConstants.PLAYER_ONE_ID)
                 {
@@ -98,9 +94,9 @@ package com.imrahil.bbapps.atarigo.controller
             }
         }
 
-        private function isLegalMove(selectedPlace:StoneVO):Boolean
+        private function isLegalMove(selectedPlace:StoneVO, playerID:uint):Boolean
         {
-            if (selectedPlace.state == ApplicationConstants.EMPTY_FIELD_ID)
+            if (selectedPlace.state != ApplicationConstants.EMPTY_FIELD_ID)
             {
                 return false;
             }
@@ -113,6 +109,7 @@ package com.imrahil.bbapps.atarigo.controller
             var listOfNeighborFriends:ListOfGroupsVO = new ListOfGroupsVO();
             var listOfNeighborEnemies:ListOfGroupsVO = new ListOfGroupsVO();
 
+            selectedPlace.state = playerID;
             visitNewStoneNeighbors(selectedPlace, listOfNeighborFriends, listOfNeighborEnemies);
 
             for each (var enemies:GroupVO in listOfNeighborEnemies.getElements())
@@ -131,26 +128,30 @@ package com.imrahil.bbapps.atarigo.controller
             }
 
             if (newOwnGroupNrLiberties > 0)
+            {
                 return true;
+            }
             else
+            {
                 return false;
+            }
         }
 
-        private function countLiberties(x:uint, y:uint):int
+        private function countLiberties(row:uint, column:uint):int
         {
             var count:int = 0;
 
-            if (x > 0)
-              if (gobanModel.getStoneAt(x - 1, y).state == ApplicationConstants.EMPTY_FIELD_ID) count++;
+            if (row > 0)
+              if (gobanModel.getStoneAt(row - 1, column).state == ApplicationConstants.EMPTY_FIELD_ID) count++;
 
-            if (x < configModel.gobanSize.gobanRows - 1)
-              if (gobanModel.getStoneAt(x + 1, y).state == ApplicationConstants.EMPTY_FIELD_ID) count++;
+            if (row < configModel.gobanSize.gobanRows - 1)
+              if (gobanModel.getStoneAt(row + 1, column).state == ApplicationConstants.EMPTY_FIELD_ID) count++;
 
-            if (y > 0)
-              if (gobanModel.getStoneAt(x, y - 1).state == ApplicationConstants.EMPTY_FIELD_ID) count++;
+            if (column > 0)
+              if (gobanModel.getStoneAt(row, column - 1).state == ApplicationConstants.EMPTY_FIELD_ID) count++;
 
-            if (y < configModel.gobanSize.gobanColumns - 1)
-              if (gobanModel.getStoneAt(x, y + 1).state == ApplicationConstants.EMPTY_FIELD_ID) count++;
+            if (column < configModel.gobanSize.gobanColumns - 1)
+              if (gobanModel.getStoneAt(row, column + 1).state == ApplicationConstants.EMPTY_FIELD_ID) count++;
 
             return count;
         }

@@ -3,7 +3,7 @@
     <id>com.imrahil.bbapps.AtariGo</id>
     <filename>AtariGo</filename>
     <name>Atari Go</name>
-    <versionNumber>0.0.4</versionNumber>
+    <versionNumber>0.0.5</versionNumber>
     <copyright>Copyright © 2012 Jarek Szczepanski</copyright>
 
     <initialWindow>
