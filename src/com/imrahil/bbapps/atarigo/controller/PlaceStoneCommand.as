@@ -272,7 +272,7 @@ package com.imrahil.bbapps.atarigo.controller
         {
             var theGroup:GroupVO = listOfNeighborFriends.first();
 
-            for each (var oneMoreGroup:GroupVO in listOfNeighborFriends)
+            for each (var oneMoreGroup:GroupVO in listOfNeighborFriends.getElements())
             {
                 oneMoreGroup.stones.setGroup(theGroup);
 
