@@ -104,7 +104,7 @@ package com.imrahil.bbapps.atarigo.view
                 aboutDialog.title = "Atari GO - v." + versionNumber;
                 aboutDialog.messageHtml = "<p align='center'><b>Author:</b> Jarek Szczepański<br />" +
                                           "<b>Email:</b> support_bb@imrahil.com<br />" +
-                                          "<b>Website:</b> http://flex.imrahil.com</p>";
+                                          "<b>Website:</b> http://imrahil.github.com/atari-go/</p>";
                 aboutDialog.addButton("OK");
                 aboutDialog.dialogSize = DialogSize.SIZE_SMALL;
                 aboutDialog.addEventListener(Event.SELECT, aboutButtonClicked);
