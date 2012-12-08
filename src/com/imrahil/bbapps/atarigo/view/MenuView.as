@@ -18,9 +18,7 @@ package com.imrahil.bbapps.atarigo.view
 
     import org.osflash.signals.Signal;
 
-    import qnx.dialog.AlertDialog;
-    import qnx.dialog.DialogSize;
-    import qnx.display.IowWindow;
+    import qnx.fuse.ui.dialog.AlertDialog;
 
     public class MenuView extends Sprite
     {
@@ -44,8 +42,9 @@ package com.imrahil.bbapps.atarigo.view
             var appTitle:AppTitle = new AppTitle();
             addChild(appTitle);
 
-            appTitle.x = (stage.stageWidth - appTitle.width) / 2;
-            appTitle.y = 60;
+            appTitle.y = 80;
+            appTitle.width = stage.stageWidth;
+            appTitle.height = 200;
 
             // START BUTTON
             var startBtn:LargeMenuButton = new LargeMenuButton();
@@ -54,7 +53,7 @@ package com.imrahil.bbapps.atarigo.view
             addChild(startBtn);
 
             startBtn.x = (stage.stageWidth - startBtn.width) / 2;
-            startBtn.y = 300;
+            startBtn.y = 400;
 
             // HELP BUTTON
             var helpBtn:LargeMenuButton = new LargeMenuButton();
@@ -63,7 +62,7 @@ package com.imrahil.bbapps.atarigo.view
             addChild(helpBtn);
 
             helpBtn.x = (stage.stageWidth - helpBtn.width) / 2;;
-            helpBtn.y = 500;
+            helpBtn.y = 620;
 
             // ABOUT BUTTON
             var aboutBtn:LargeMenuButton = new LargeMenuButton();
@@ -72,14 +71,14 @@ package com.imrahil.bbapps.atarigo.view
             addChild(aboutBtn);
 
             aboutBtn.x = (stage.stageWidth - aboutBtn.width) / 2;;
-            aboutBtn.y = 700;
+            aboutBtn.y = 840;
 
             // COPYRIGHT
             var copyLabel:SmallCornerCopyrights = new SmallCornerCopyrights();
             addChild(copyLabel);
 
-            copyLabel.x = stage.stageWidth - copyLabel.width - 10;
-            copyLabel.y = 1000;
+            copyLabel.width = stage.stageWidth - 10;
+            copyLabel.y = stage.stageHeight - 30;
         }
 
         private function onStartBtnClick(event:MouseEvent):void
@@ -102,13 +101,12 @@ package com.imrahil.bbapps.atarigo.view
 
                 var aboutDialog:AlertDialog = new AlertDialog();
                 aboutDialog.title = "Atari GO - v." + versionNumber;
-                aboutDialog.messageHtml = "<p align='center'><b>Author:</b> Jarek Szczepański<br />" +
-                                          "<b>Email:</b> support_bb@imrahil.com<br />" +
-                                          "<b>Website:</b> http://imrahil.github.com/atari-go/</p>";
+                aboutDialog.message = "Author: Jarek Szczepański\n" +
+                                      "Email: support_bb@imrahil.com\n" +
+                                      "Website:\nhttp://imrahil.github.com/";
                 aboutDialog.addButton("OK");
-                aboutDialog.dialogSize = DialogSize.SIZE_SMALL;
                 aboutDialog.addEventListener(Event.SELECT, aboutButtonClicked);
-                aboutDialog.show(IowWindow.getAirWindow().group);
+                aboutDialog.show();
             }
         }
 

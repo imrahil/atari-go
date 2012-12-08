@@ -3,7 +3,7 @@
     <id>com.imrahil.bbapps.AtariGo</id>
     <filename>AtariGo</filename>
     <name>Atari Go</name>
-    <versionNumber>0.0.7</versionNumber>
+    <versionNumber>0.1</versionNumber>
     <copyright>Copyright © 2012 Jarek Szczepanski</copyright>
 
     <initialWindow>
@@ -17,4 +17,8 @@
         <minimizable>false</minimizable>
         <maximizable>false</maximizable>
     </initialWindow>
+
+    <extensions>
+        <extensionID>qnx.fuse.ui.skins.QNXSkins</extensionID>
+    </extensions>
 </application>

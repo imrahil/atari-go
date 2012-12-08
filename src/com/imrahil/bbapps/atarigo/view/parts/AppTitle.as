@@ -7,10 +7,9 @@
  */
 package com.imrahil.bbapps.atarigo.view.parts
 {
-    import flash.text.TextFieldAutoSize;
-    import flash.text.TextFormat;
-
     import qnx.fuse.ui.text.Label;
+    import qnx.fuse.ui.text.TextAlign;
+    import qnx.fuse.ui.text.TextFormat;
 
     public class AppTitle extends Label
     {
@@ -23,13 +22,12 @@ package com.imrahil.bbapps.atarigo.view.parts
         {
             var format:TextFormat = new TextFormat();
             format.font = "Arial";
-            format.size = 120;
+            format.size = 140;
             format.color = 0x000000;
+            format.align = TextAlign.CENTER;
 
             this.format = format;
-            this.autoSize = TextFieldAutoSize.LEFT;
             this.text = "Atari GO";
-            this.setActualSize(this.textWidth, this.textHeight);
         }
     }
 }

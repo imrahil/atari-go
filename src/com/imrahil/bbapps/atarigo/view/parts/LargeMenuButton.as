@@ -7,11 +7,12 @@
  */
 package com.imrahil.bbapps.atarigo.view.parts
 {
-    import flash.text.TextFormat;
+
     import flash.text.TextFormatAlign;
 
     import qnx.fuse.ui.buttons.LabelButton;
     import qnx.fuse.ui.skins.SkinStates;
+    import qnx.fuse.ui.text.TextFormat;
 
     public class LargeMenuButton extends LabelButton
     {
@@ -24,7 +25,7 @@ package com.imrahil.bbapps.atarigo.view.parts
         {
             var format:TextFormat = new TextFormat();
             format.font = "Arial";
-            format.size = 50;
+            format.size = 60;
             format.color = 0x000000;
             format.align = TextFormatAlign.CENTER;
 
@@ -35,7 +36,7 @@ package com.imrahil.bbapps.atarigo.view.parts
             this.setTextFormatForState(format, SkinStates.DISABLED_SELECTED);
 
             this.width = 400;
-            this.height = 100;
+            this.height = 110;
         }
     }
 }

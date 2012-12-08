@@ -7,10 +7,8 @@
  */
 package com.imrahil.bbapps.atarigo.view.parts
 {
-    import flash.text.TextFieldAutoSize;
-    import flash.text.TextFormat;
-
     import qnx.fuse.ui.text.Label;
+    import qnx.fuse.ui.text.TextFormat;
 
     public class PlayerNameLargeLabel extends Label
     {
@@ -23,11 +21,12 @@ package com.imrahil.bbapps.atarigo.view.parts
         {
             var labelFormat:TextFormat = new TextFormat();
             labelFormat.font = "Arial";
-            labelFormat.size = 45;
+            labelFormat.size = 55;
             labelFormat.color = 0x000000;
 
             this.format = labelFormat;
-            this.autoSize = TextFieldAutoSize.LEFT;
+            this.width = 600;
+            this.height = 100;
         }
     }
 }

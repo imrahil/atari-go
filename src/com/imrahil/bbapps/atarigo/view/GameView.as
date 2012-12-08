@@ -18,9 +18,7 @@ package com.imrahil.bbapps.atarigo.view
 
     import org.osflash.signals.Signal;
 
-    import qnx.dialog.AlertDialog;
-    import qnx.dialog.DialogSize;
-    import qnx.display.IowWindow;
+    import qnx.fuse.ui.dialog.AlertDialog;
 
     public class GameView extends Sprite
     {
@@ -89,8 +87,7 @@ package com.imrahil.bbapps.atarigo.view
                 aboutDialog.message = message;
 
                 aboutDialog.addButton("OK");
-                aboutDialog.dialogSize = DialogSize.SIZE_SMALL;
-                aboutDialog.show(IowWindow.getAirWindow().group);
+                aboutDialog.show();
             }
         }
 
@@ -101,7 +98,7 @@ package com.imrahil.bbapps.atarigo.view
             addChild(playerOneDetails);
 
             playerOneDetails.x = 0;
-            playerOneDetails.y = 812;
+            playerOneDetails.y = stage.stageHeight - 250;
             playerOneDetails.playerColor = ApplicationConstants.PLAYER_ONE_COLOR_BLACK;
 
             playerTwoDetails = new PlayerDetails();
@@ -109,7 +106,7 @@ package com.imrahil.bbapps.atarigo.view
             addChild(playerTwoDetails);
 
             playerTwoDetails.x = stage.stageWidth;
-            playerTwoDetails.y = 212;
+            playerTwoDetails.y = 250;
             playerTwoDetails.rotationZ = 180;
             playerTwoDetails.playerColor = ApplicationConstants.PLAYER_TWO_COLOR_WHITE;
         }

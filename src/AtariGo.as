@@ -11,7 +11,7 @@ package
 
     import flash.display.Sprite;
 
-    [SWF(width="600", height="1024", backgroundColor="#DCB35C", frameRate="30")]
+    [SWF(height="1280", width="768", frameRate="60", backgroundColor="#DCB35C")]
     public class AtariGo extends Sprite
     {
         protected var _context:AtariGoContext;

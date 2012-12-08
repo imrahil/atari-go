@@ -20,6 +20,8 @@ Application icon is created using - http://nl.wikipedia.org/wiki/Bestand:Ko_01.p
 TODO
 ----
 
+  - undo!
+  - help screen
   - larger boards
   - save & load games
   - better graphics :)
